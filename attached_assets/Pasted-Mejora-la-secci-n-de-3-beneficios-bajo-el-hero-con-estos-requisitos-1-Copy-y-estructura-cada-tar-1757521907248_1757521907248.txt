@@ -1,0 +1,39 @@
+Mejora la sección de 3 beneficios bajo el hero con estos requisitos:
+
+1) Copy y estructura (cada tarjeta):
+- Título 1: “Especialistas en Clima y Telecom”
+  Descripción: “Asesoría técnica y precios competitivos para proyectos exigentes. Split/VRF, ductos, cableado y conectividad. Importación a pedido.”
+  Micro-CTA (link): “Ver soluciones de Clima y Telecom →” apuntando a /services#climatizacion-telecom
+
+- Título 2: “Logística Rápida y Confiable”
+  Descripción: “Despacho prioritario 24–72 h a obra o faena*. Seguimiento y coordinación directa con tu equipo.”
+  Micro-CTA (link): “Tiempos y cobertura →” apuntando a /contact#logistica
+  Nota al pie común (bajo las 3 tarjetas, texto pequeño): “*Plazos referenciales; sujetos a stock y región.”
+
+- Título 3: “Crédito para tu Empresa”
+  Descripción: “Flexibilidad financiera para tus compras recurrentes. Boleta o factura y opciones de crédito (sujeto a evaluación).”
+  Micro-CTA (link): “Solicitar evaluación de crédito →” apuntando a /contact#credito
+
+2) Estilo visual:
+- Tarjetas clicables con borde 1px #E6E7EB, fondo blanco, border-radius 16px, padding amplio.
+- Hover: leve elevación (sombra suave) y borde #DADCE1.
+- Íconos outline consistentes (28–32 px) en color de acento amarillo/ámbar; mismo grosor y alineación.
+- Tipografía: mantener la del sitio; títulos semibold; descripciones color #5B5F66.
+- En mobile: 1 columna; en desktop: 3 columnas con gap generoso.
+
+3) Accesibilidad:
+- Contraste AA para textos y links.
+- Foco visible en las tarjetas y links.
+- Añadir aria-label a los micro-CTA, p. ej. aria-label="Ver soluciones de Clima y Telecom".
+
+4) Analítica (añadir data-attributes):
+- data-analytics="benefit-clima"
+- data-analytics="benefit-logistica"
+- data-analytics="benefit-credito"
+(Estos atributos deben estar en el elemento clickable principal de cada tarjeta.)
+
+5) Interacción:
+- El micro-CTA debe ser un <a> real que navegue a las secciones indicadas.
+- Toda la tarjeta puede ser clickable; si haces toda la tarjeta clickable, evitar que el micro-CTA duplique eventos (detener propagación).
+
+Aplica estos cambios manteniendo el estilo global del sitio y el esquema de colores actual.

@@ -60,31 +60,133 @@ export default function Home() {
       {/* Hero Section */}
       <HeroCarousel />
 
-      {/* Value Proposition Section */}
-      <section className="py-16 bg-muted">
+      {/* Benefits Section */}
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 sumerica-yellow rounded-full flex items-center justify-center">
-                <Snowflake className="text-2xl text-primary-foreground" />
+            {/* Benefit 1: Especialistas en Clima y Telecom */}
+            <div
+              className="group relative bg-white border border-gray-200 rounded-2xl p-8 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+              data-analytics="benefit-clima"
+              data-testid="card-benefit-clima"
+              onClick={(e) => {
+                if (!e.target.closest('a')) {
+                  window.location.href = '/services#climatizacion-telecom';
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) {
+                  e.preventDefault();
+                  window.location.href = '/services#climatizacion-telecom';
+                }
+              }}
+            >
+              <div className="flex items-center justify-center w-8 h-8 mb-6">
+                <Snowflake className="w-8 h-8 text-primary" strokeWidth={1.5} />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Especialistas en Clima y Telecom</h3>
-              <p className="text-muted-foreground">Asesoría experta y precios competitivos para tus proyectos más técnicos</p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900">
+                Especialistas en Clima y Telecom
+              </h3>
+              <p className="text-base mb-6" style={{ color: '#5B5F66' }}>
+                Asesoría técnica y precios competitivos para proyectos exigentes. Split/VRF, ductos, cableado y conectividad. Importación a pedido.
+              </p>
+              <a
+                href="/services#climatizacion-telecom"
+                className="inline-flex items-center text-primary font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:rounded"
+                aria-label="Ver soluciones de Clima y Telecom"
+                data-testid="link-clima-solutions"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Ver soluciones de Clima y Telecom →
+              </a>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 sumerica-yellow rounded-full flex items-center justify-center">
-                <Truck className="text-2xl text-primary-foreground" />
+
+            {/* Benefit 2: Logística Rápida y Confiable */}
+            <div
+              className="group relative bg-white border border-gray-200 rounded-2xl p-8 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+              data-analytics="benefit-logistica"
+              data-testid="card-benefit-logistica"
+              onClick={(e) => {
+                if (!e.target.closest('a')) {
+                  window.location.href = '/contact#logistica';
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) {
+                  e.preventDefault();
+                  window.location.href = '/contact#logistica';
+                }
+              }}
+            >
+              <div className="flex items-center justify-center w-8 h-8 mb-6">
+                <Truck className="w-8 h-8 text-primary" strokeWidth={1.5} />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Logística Rápida y Confiable</h3>
-              <p className="text-muted-foreground">Entendemos que tu proyecto no puede esperar. Entregamos a tiempo, siempre</p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900">
+                Logística Rápida y Confiable
+              </h3>
+              <p className="text-base mb-6" style={{ color: '#5B5F66' }}>
+                Despacho prioritario 24–72 h a obra o faena*. Seguimiento y coordinación directa con tu equipo.
+              </p>
+              <a
+                href="/contact#logistica"
+                className="inline-flex items-center text-primary font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:rounded"
+                aria-label="Tiempos y cobertura"
+                data-testid="link-logistics-info"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Tiempos y cobertura →
+              </a>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 sumerica-yellow rounded-full flex items-center justify-center">
-                <CreditCard className="text-2xl text-primary-foreground" />
+
+            {/* Benefit 3: Crédito para tu Empresa */}
+            <div
+              className="group relative bg-white border border-gray-200 rounded-2xl p-8 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+              data-analytics="benefit-credito"
+              data-testid="card-benefit-credito"
+              onClick={(e) => {
+                if (!e.target.closest('a')) {
+                  window.location.href = '/contact#credito';
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) {
+                  e.preventDefault();
+                  window.location.href = '/contact#credito';
+                }
+              }}
+            >
+              <div className="flex items-center justify-center w-8 h-8 mb-6">
+                <CreditCard className="w-8 h-8 text-primary" strokeWidth={1.5} />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Crédito para tu Empresa</h3>
-              <p className="text-muted-foreground">Ofrecemos flexibilidad financiera para apoyar el crecimiento de nuestros socios</p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900">
+                Crédito para tu Empresa
+              </h3>
+              <p className="text-base mb-6" style={{ color: '#5B5F66' }}>
+                Flexibilidad financiera para tus compras recurrentes. Boleta o factura y opciones de crédito (sujeto a evaluación).
+              </p>
+              <a
+                href="/contact#credito"
+                className="inline-flex items-center text-primary font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:rounded"
+                aria-label="Solicitar evaluación de crédito"
+                data-testid="link-credit-evaluation"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Solicitar evaluación de crédito →
+              </a>
             </div>
+          </div>
+          
+          {/* Footnote */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500">
+              *Plazos referenciales; sujetos a stock y región.
+            </p>
           </div>
         </div>
       </section>
