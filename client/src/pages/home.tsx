@@ -348,6 +348,42 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      {/* Partners and Certifications Section */}
+      <section className="py-12 bg-gray-50 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              Empresas que confían en SUMERICA
+            </h3>
+            <p className="text-gray-600" style={{ fontSize: '16px' }}>
+              Respaldados por certificaciones y alianzas estratégicas
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center opacity-60">
+            {/* Placeholder logos - these would be replaced with actual partner/certification logos */}
+            <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center h-16">
+              <span className="text-gray-400 font-medium text-sm">ISO 9001</span>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center h-16">
+              <span className="text-gray-400 font-medium text-sm">CODELCO</span>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center h-16">
+              <span className="text-gray-400 font-medium text-sm">ENGIE</span>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center h-16">
+              <span className="text-gray-400 font-medium text-sm">ENEL</span>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center h-16">
+              <span className="text-gray-400 font-medium text-sm">SACYR</span>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center h-16">
+              <span className="text-gray-400 font-medium text-sm">COPEC</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

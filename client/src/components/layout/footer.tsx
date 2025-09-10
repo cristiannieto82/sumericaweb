@@ -18,24 +18,44 @@ export default function Footer() {
             <div className="text-2xl font-bold text-foreground mb-4">
               <span className="text-primary">SUMERICA</span>
             </div>
-            <p className="text-muted-foreground mb-4">
-              Proveedor líder de soluciones industriales integrales en Chile. Especializados en climatización y telecomunicaciones con más de 10 años de experiencia en el mercado.
+            <p className="text-muted-foreground mb-4" style={{ fontSize: '16px' }}>
+              SUMERICA es proveedor de confianza en climatización, telecomunicaciones y suministros industriales en Chile. Con más de 10 años de experiencia y alianzas estratégicas, entregamos soluciones rápidas, flexibles y certificadas para empresas líderes.
             </p>
+            <div className="mb-4">
+              <p className="text-sm font-medium text-muted-foreground">
+                <span className="text-primary font-semibold">Horarios de atención:</span> Lunes a Viernes · 9:00–18:00 hrs
+              </p>
+            </div>
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary" data-testid="link-linkedin">
-                <Linkedin className="text-xl" />
+              <a 
+                href="#" 
+                className="text-primary hover:text-yellow-600 transition-colors duration-300" 
+                data-testid="link-linkedin"
+                aria-label="Visitar perfil de LinkedIn de SUMERICA"
+              >
+                <Linkedin className="w-6 h-6" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary" data-testid="link-facebook">
-                <Facebook className="text-xl" />
+              <a 
+                href="#" 
+                className="text-primary hover:text-yellow-600 transition-colors duration-300" 
+                data-testid="link-facebook"
+                aria-label="Visitar página de Facebook de SUMERICA"
+              >
+                <Facebook className="w-6 h-6" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary" data-testid="link-instagram">
-                <Instagram className="text-xl" />
+              <a 
+                href="#" 
+                className="text-primary hover:text-yellow-600 transition-colors duration-300" 
+                data-testid="link-instagram"
+                aria-label="Visitar perfil de Instagram de SUMERICA"
+              >
+                <Instagram className="w-6 h-6" />
               </a>
             </div>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Navegación</h3>
+            <h3 className="font-semibold mb-4">Explora</h3>
             <div className="space-y-2">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
