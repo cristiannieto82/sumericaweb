@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -28,14 +28,13 @@ export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
   });
 
-  // Filter products based on search and filters
-  useEffect(() => {
+  // Filter products based on search and filters using useMemo
+  const filteredProducts = useMemo(() => {
     let filtered = products;
 
     // Search filter
@@ -63,7 +62,7 @@ export default function Catalog() {
       );
     }
 
-    setFilteredProducts(filtered);
+    return filtered;
   }, [products, searchQuery, selectedCategories, selectedBrands]);
 
   const handleCategoryChange = (category: string, checked: boolean) => {

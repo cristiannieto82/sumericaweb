@@ -137,7 +137,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                     <FormItem>
                       <FormLabel>Empresa</FormLabel>
                       <FormControl>
-                        <Input {...field} data-testid="input-quote-company" />
+                        <Input {...field} value={field.value || ""} data-testid="input-quote-company" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

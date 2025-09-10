@@ -30,14 +30,15 @@ export default function Header() {
                 <span className="text-primary">SUMERICA</span>
               </div>
             </Link>
-            
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a 
+                  <a
                     className={`font-medium transition-colors hover:text-primary ${
-                      location === item.href ? 'text-primary' : 'text-foreground'
+                      location === item.href
+                        ? "text-primary"
+                        : "text-foreground"
                     }`}
                     data-testid={`link-nav-${item.name.toLowerCase()}`}
                   >
@@ -46,7 +47,7 @@ export default function Header() {
                 </Link>
               ))}
             </nav>
-            
+
             {/* CTA Button & Quote Counter */}
             <div className="flex items-center space-x-4">
               {items.length > 0 && (
@@ -61,19 +62,24 @@ export default function Header() {
                   {items.length} productos
                 </Button>
               )}
-              
-              <Button 
+
+              <Button
                 className="sumerica-yellow"
                 onClick={() => setIsQuoteModalOpen(true)}
                 data-testid="button-quote-now"
               >
                 Cotizar Ahora
               </Button>
-              
+
               {/* Mobile menu button */}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="sm" className="md:hidden" data-testid="button-mobile-menu">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="md:hidden"
+                    data-testid="button-mobile-menu"
+                  >
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
@@ -81,9 +87,11 @@ export default function Header() {
                   <nav className="flex flex-col space-y-4 mt-8">
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
-                        <a 
+                        <a
                           className={`block font-medium transition-colors hover:text-primary ${
-                            location === item.href ? 'text-primary' : 'text-foreground'
+                            location === item.href
+                              ? "text-primary"
+                              : "text-foreground"
                           }`}
                           data-testid={`link-mobile-nav-${item.name.toLowerCase()}`}
                         >
@@ -99,9 +107,9 @@ export default function Header() {
         </div>
       </header>
 
-      <QuoteModal 
-        isOpen={isQuoteModalOpen} 
-        onClose={() => setIsQuoteModalOpen(false)} 
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
       />
     </>
   );
