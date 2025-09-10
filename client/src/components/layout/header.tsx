@@ -26,9 +26,12 @@ export default function Header() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link href="/">
-              <div className="text-2xl font-bold text-foreground cursor-pointer" data-testid="link-logo">
-                <span className="text-primary">SUMERICA</span>
-              </div>
+              <img
+                src="/logosumerica.png"
+                alt="Sumerica Logo"
+                className="h-10 w-auto cursor-pointer"
+                data-testid="link-logo"
+              />
             </Link>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
