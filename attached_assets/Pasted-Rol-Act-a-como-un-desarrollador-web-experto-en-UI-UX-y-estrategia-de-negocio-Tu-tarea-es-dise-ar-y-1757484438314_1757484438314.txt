@@ -1,0 +1,86 @@
+Rol: Actúa como un desarrollador web experto en UI/UX y estrategia de negocio. Tu tarea es diseñar y generar el código para un sitio web corporativo moderno, profesional y altamente funcional para una empresa llamada SUMERICA. El objetivo principal del sitio es captar clientes industriales (B2B) y generales (B2C) para que soliciten cotizaciones.
+
+1. IDENTIDAD Y ESTRATEGIA DEL PROYECTO
+
+Nombre de la Empresa: SUMERICA
+Negocio: Proveedor de productos industriales y soluciones integrales.
+Categorías Principales: Climatización, Telecomunicaciones, EPP (Equipos de Protección Personal), Ferretería, Construcción, Maquinaria, Oficina y Alimentación.
+Puntos Fuertes a Destacar: Su mayor especialización y mejores precios están en Climatización y Telecomunicaciones.
+Público Objetivo Dual:
+Corporativo (B2B): Jefes de adquisiciones de empresas de minería y construcción. El tono para ellos debe ser formal, profesional y enfocado en soluciones y confianza.
+General (B2C): Personas que buscan productos específicos. El tono para ellos debe ser claro, directo y fácil de navegar.
+Ventajas Competitivas Clave (Factor "X"):
+Especialización: Expertise y precios competitivos en Climatización y Telecomunicaciones.
+Servicio Ágil: Puntualidad y rapidez en la entrega.
+Flexibilidad Financiera: Ofrecen crédito a empresas.
+2. IDENTIDAD VISUAL
+
+Estilo General: Moderno, limpio, profesional, con mucho espacio en blanco para que el contenido respire. Inspirado en la claridad y el enfoque en beneficios.
+Paleta de Colores:
+Fondo Principal: Blanco (#ffffff).
+Color Primario (Acentos, Botones, Títulos Clave): Amarillo SUMERICA (#ffc800).
+Color Secundario (Texto General, Contraste): Negro (#000000).
+Tipografía: Utiliza una fuente sans-serif moderna y legible (Ej: Montserrat, Poppins, o similar).
+3. ESTRUCTURA DEL SITIO WEB (PÁGINA POR PÁGINA)
+
+PÁGINA DE INICIO (Homepage)
+Es la vendedora principal. Debe ser impactante y guiar al usuario rápidamente.
+
+Sección 1: Hero Banner (Impacto Visual)
+
+Fondo: Un carrusel de 3 imágenes de alta calidad: una de minería, una de construcción y una que combine tecnología (telecom) con climatización.
+Título Principal (grande y centrado): Soluciones que Impulsan tu Industria.
+Slogan (debajo del título): Desde climatización especializada hasta el suministro integral para tu faena.
+Botones de Acción:
+Ver Catálogo de Productos (botón primario, fondo amarillo, texto negro).
+Hablar con un Especialista (botón secundario, borde negro, texto negro).
+Sección 2: Propuesta de Valor (El Factor "X")
+
+Un bloque justo debajo del banner con 3 o 4 columnas, cada una con un ícono simple y minimalista.
+Columna 1: Título: Especialistas en Clima y Telecom. Texto: "Asesoría experta y precios competitivos para tus proyectos más técnicos".
+Columna 2: Título: Logística Rápida y Confiable. Texto: "Entendemos que tu proyecto no puede esperar. Entregamos a tiempo, siempre".
+Columna 3: Título: Crédito para tu Empresa. Texto: "Ofrecemos flexibilidad financiera para apoyar el crecimiento de nuestros socios".
+Sección 3: Categorías Principales
+
+Un grid visual con imágenes de alta calidad para cada categoría.
+Destacar: Las tarjetas de "Climatización" y "Telecomunicaciones" deben ser más grandes o tener un diseño especial para llamar la atención.
+Categorías a mostrar: Climatización, Telecomunicaciones, EPP y Seguridad, Ferretería Industrial, Construcción.
+Debe haber un enlace o botón final que diga Ver Todas las Categorías.
+Sección 4: Confianza y Prueba Social
+
+Título: Proveemos Soluciones Confiables a la Industria Chilena.
+Contenido: Un carrusel horizontal con los logos de empresas importantes atendidas o de los sectores clave (ej: Minería, Construcción, Energía).
+Sección 5: Llamada a la Acción Final
+
+Un bloque de ancho completo con un color de fondo sutil.
+Título: ¿Tienes un Requerimiento Complejo?
+Texto: Nuestro equipo está listo para encontrar la solución perfecta para ti.
+Botón: Solicitar Cotización Personalizada (grande, fondo amarillo).
+PÁGINA DE CATÁLOGO DE PRODUCTOS
+Diseño: Interfaz limpia y fácil de usar.
+Buscador: Una barra de búsqueda prominente en la parte superior con el texto "Encuentra tu producto por nombre, marca o código".
+Filtros: Una columna lateral (sidebar) para filtrar productos por Categoría y Marca.
+Vista de Productos: Una cuadrícula (grid) de productos. Cada "tarjeta de producto" debe mostrar:
+Imagen del producto.
+Nombre del producto.
+Botón Añadir a Cotización.
+Proceso de Cotización: El usuario puede añadir múltiples productos a un "carrito de cotización". Al finalizar, llena un formulario simple (Nombre, Empresa, Email, Teléfono) para enviar la solicitud. No es un e-commerce con pago.
+PÁGINA DE CONTACTO
+Diseño: Dos columnas.
+Columna Izquierda: Un formulario de contacto simple (Nombre, Email, Asunto, Mensaje).
+Columna Derecha:
+Teléfono (clic para llamar).
+Email (clic para enviar correo).
+WhatsApp (clic para abrir chat).
+Dirección Comercial.
+Un mapa de Google Maps integrado.
+4. FUNCIONALIDADES GLOBALES
+
+Navegación Principal (Header):
+Logo de SUMERICA a la izquierda.
+Menú con enlaces: Inicio, Catálogo, Servicios, Industrias, Contacto.
+Botón destacado a la derecha: Cotizar Ahora (fondo amarillo).
+Pie de Página (Footer):
+Debe contener el logo, un breve resumen de la empresa, enlaces de navegación, información de contacto y enlaces a redes sociales (si existen).
+Botón Flotante: Un botón de WhatsApp siempre visible en la esquina inferior derecha de la pantalla.
+Diseño 100% Adaptable (Responsive): La web debe verse y funcionar perfectamente en computadores de escritorio, tablets y, especialmente, en teléfonos móviles.
