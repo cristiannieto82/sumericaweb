@@ -39,9 +39,9 @@ export default function Footer() {
             <div className="space-y-2">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a className="block text-muted-foreground hover:text-primary" data-testid={`link-footer-${item.name.toLowerCase()}`}>
+                  <span className="block text-muted-foreground hover:text-primary cursor-pointer" data-testid={`link-footer-${item.name.toLowerCase()}`}>
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
             </div>
