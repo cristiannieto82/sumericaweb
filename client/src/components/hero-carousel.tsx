@@ -4,17 +4,17 @@ import { Link } from "wouter";
 
 const heroImages = [
   {
-    url: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600",
-    alt: "Operación minera a gran escala con maquinaria pesada"
+    url: "https://images.unsplash.com/photo-1630683924997-fe27050a0416?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "Operación minera a gran escala con maquinaria pesada",
   },
   {
-    url: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600",
-    alt: "Sitio de construcción con grúas y materiales"
+    url: "https://images.unsplash.com/photo-1651090430988-ac56ec7608cf?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "Sitio de construcción con grúas y materiales",
   },
   {
-    url: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600",
-    alt: "Torre de telecomunicaciones con equipos modernos"
-  }
+    url: "https://images.unsplash.com/photo-1599707254554-027aeb4deacd?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "Torre de telecomunicaciones con equipos modernos",
+  },
 ];
 
 export default function HeroCarousel() {
@@ -32,10 +32,10 @@ export default function HeroCarousel() {
 
   return (
     <section className="relative h-[600px] hero-carousel">
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-500"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${currentImage.url}')`
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${currentImage.url}')`,
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center text-center text-white">
@@ -44,17 +44,21 @@ export default function HeroCarousel() {
               Soluciones que Impulsan tu Industria
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-gray-200">
-              Desde climatización especializada hasta el suministro integral para tu faena
+              Desde climatización especializada hasta el suministro integral
+              para tu faena
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/catalog">
-                <Button className="sumerica-yellow px-8 py-4 text-lg font-semibold" data-testid="button-hero-catalog">
+                <Button
+                  className="sumerica-yellow px-8 py-4 text-lg font-semibold"
+                  data-testid="button-hero-catalog"
+                >
                   Ver Catálogo de Productos
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-black"
                   data-testid="button-hero-contact"
                 >
@@ -65,14 +69,16 @@ export default function HeroCarousel() {
           </div>
         </div>
       </div>
-      
+
       {/* Carousel indicators */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {heroImages.map((_, index) => (
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-opacity ${
-              index === currentSlide ? 'bg-white opacity-100' : 'bg-white opacity-50'
+              index === currentSlide
+                ? "bg-white opacity-100"
+                : "bg-white opacity-50"
             }`}
             onClick={() => setCurrentSlide(index)}
             data-testid={`button-carousel-indicator-${index}`}

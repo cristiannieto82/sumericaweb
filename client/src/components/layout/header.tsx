@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ShoppingCart } from "lucide-react";
 import { useQuoteCart } from "@/hooks/use-quote-cart";
 import QuoteModal from "@/components/quote-modal";
+import sumericaLogo from "@/assets/logosumerica.png"; // <-- 1. IMPORTA LA IMAGEN
 
 const navigation = [
   { name: "Inicio", href: "/" },
@@ -27,9 +28,9 @@ export default function Header() {
             {/* Logo */}
             <Link href="/">
               <img
-                src="/logosumerica.png"
+                src={sumericaLogo} // <-- 2. USA LA VARIABLE IMPORTADA
                 alt="Sumerica Logo"
-                className="h-10 w-auto cursor-pointer"
+                className="h-16 w-auto cursor-pointer"
                 data-testid="link-logo"
               />
             </Link>
@@ -37,8 +38,8 @@ export default function Header() {
             <nav className="hidden md:flex space-x-8">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a
-                    className={`font-medium transition-colors hover:text-primary ${
+                  <span
+                    className={`font-medium transition-colors hover:text-primary cursor-pointer ${
                       location === item.href
                         ? "text-primary"
                         : "text-foreground"
@@ -46,7 +47,7 @@ export default function Header() {
                     data-testid={`link-nav-${item.name.toLowerCase()}`}
                   >
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
             </nav>
@@ -90,8 +91,8 @@ export default function Header() {
                   <nav className="flex flex-col space-y-4 mt-8">
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
-                        <a
-                          className={`block font-medium transition-colors hover:text-primary ${
+                        <span
+                          className={`block font-medium transition-colors hover:text-primary cursor-pointer ${
                             location === item.href
                               ? "text-primary"
                               : "text-foreground"
@@ -99,7 +100,7 @@ export default function Header() {
                           data-testid={`link-mobile-nav-${item.name.toLowerCase()}`}
                         >
                           {item.name}
-                        </a>
+                        </span>
                       </Link>
                     ))}
                   </nav>
