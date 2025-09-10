@@ -70,14 +70,14 @@ export default function Home() {
               data-analytics="benefit-clima"
               data-testid="card-benefit-clima"
               onClick={(e) => {
-                if (!e.target.closest('a')) {
+                if (!(e.target as Element)?.closest('a')) {
                   window.location.href = '/services#climatizacion-telecom';
                 }
               }}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) {
+                if ((e.key === 'Enter' || e.key === ' ') && !(e.target as Element)?.closest('a')) {
                   e.preventDefault();
                   window.location.href = '/services#climatizacion-telecom';
                 }
@@ -109,14 +109,14 @@ export default function Home() {
               data-analytics="benefit-logistica"
               data-testid="card-benefit-logistica"
               onClick={(e) => {
-                if (!e.target.closest('a')) {
+                if (!(e.target as Element)?.closest('a')) {
                   window.location.href = '/contact#logistica';
                 }
               }}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) {
+                if ((e.key === 'Enter' || e.key === ' ') && !(e.target as Element)?.closest('a')) {
                   e.preventDefault();
                   window.location.href = '/contact#logistica';
                 }
@@ -148,14 +148,14 @@ export default function Home() {
               data-analytics="benefit-credito"
               data-testid="card-benefit-credito"
               onClick={(e) => {
-                if (!e.target.closest('a')) {
+                if (!(e.target as Element)?.closest('a')) {
                   window.location.href = '/contact#credito';
                 }
               }}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) {
+                if ((e.key === 'Enter' || e.key === ' ') && !(e.target as Element)?.closest('a')) {
                   e.preventDefault();
                   window.location.href = '/contact#credito';
                 }
