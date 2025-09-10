@@ -53,10 +53,26 @@ const categories = [
 ];
 
 const industries = [
-  { name: "Minería", icon: HardHat },
-  { name: "Construcción", icon: Building },
-  { name: "Energía", icon: Zap },
-  { name: "Industrial", icon: Factory }
+  { 
+    name: "Minería", 
+    icon: HardHat,
+    description: "Insumos y equipos especializados para faenas en terreno."
+  },
+  { 
+    name: "Construcción", 
+    icon: Building,
+    description: "Materiales y herramientas para obras a gran escala."
+  },
+  { 
+    name: "Energía", 
+    icon: Zap,
+    description: "Soluciones eléctricas y climatización para plantas energéticas."
+  },
+  { 
+    name: "Industrial", 
+    icon: Factory,
+    description: "Ferretería, seguridad y telecomunicaciones para la industria general."
+  }
 ];
 
 export default function Home() {
@@ -287,17 +303,24 @@ export default function Home() {
       <section className="py-16 bg-muted pb-20 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Proveemos Soluciones Confiables a la Industria Chilena</h2>
-            <p className="text-xl text-muted-foreground">Nuestros clientes confían en nosotros para sus proyectos más importantes</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+              Soluciones Industriales Certificadas para Minería, Energía y Construcción en Chile
+            </h2>
+            <p className="text-xl text-gray-600" style={{ fontSize: '18px' }}>
+              Más de 100 proyectos entregados con puntualidad y respaldo técnico. Empresas líderes confían en nosotros.
+            </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {industries.map((industry) => (
               <div key={industry.name} className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
-                  <industry.icon className="text-3xl text-gray-600" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-100">
+                  <industry.icon className="w-10 h-10 text-primary" strokeWidth={1.5} />
                 </div>
-                <h4 className="font-semibold">{industry.name}</h4>
+                <h4 className="font-bold text-lg mb-2 text-gray-900">{industry.name}</h4>
+                <p className="text-gray-600 text-sm leading-relaxed" style={{ fontSize: '16px' }}>
+                  {industry.description}
+                </p>
               </div>
             ))}
           </div>
@@ -307,13 +330,19 @@ export default function Home() {
       {/* Final CTA Section */}
       <section className="py-16 sumerica-yellow">
         <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="text-4xl font-bold mb-4 text-primary-foreground">¿Tienes un Requerimiento Complejo?</h2>
-          <p className="text-xl mb-8 text-primary-foreground/80">Nuestro equipo está listo para encontrar la solución perfecta para ti</p>
+          <h2 className="text-4xl font-bold mb-4 text-primary-foreground">
+            ¿Tienes un Requerimiento Complejo o Urgente?
+          </h2>
+          <p className="text-xl mb-8 text-primary-foreground/90" style={{ fontSize: '20px' }}>
+            Nuestro equipo responde en menos de 24 h hábiles y diseña la mejor solución para tu empresa.
+          </p>
           <Link href="/contact">
             <Button 
-              className="bg-white text-black px-10 py-4 text-lg font-semibold hover:bg-gray-100"
+              className="bg-white text-black px-10 py-4 text-lg font-bold hover:bg-gray-100 hover:shadow-xl transition-all duration-300 shadow-lg"
               data-testid="button-request-quote"
+              aria-label="Solicitar cotización personalizada para tu empresa"
             >
+              <span className="mr-2">💬</span>
               Solicitar Cotización Personalizada
             </Button>
           </Link>

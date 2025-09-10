@@ -1,0 +1,34 @@
+Mejora la sección final del Home con estos cambios:
+
+1) Encabezado principal:
+- Nuevo título: “Soluciones Industriales Certificadas para Minería, Energía y Construcción en Chile”.
+- Subtítulo: “Más de 100 proyectos entregados con puntualidad y respaldo técnico. Empresas líderes confían en nosotros.”
+
+2) Sectores industriales:
+- Mantener 4 columnas (Minería, Construcción, Energía, Industrial).
+- Sustituir íconos planos por íconos premium outline sólidos y consistentes (color amarillo corporativo).
+- Añadir microcopy bajo cada título:
+  - Minería: “Insumos y equipos especializados para faenas en terreno.”
+  - Construcción: “Materiales y herramientas para obras a gran escala.”
+  - Energía: “Soluciones eléctricas y climatización para plantas energéticas.”
+  - Industrial: “Ferretería, seguridad y telecomunicaciones para la industria general.”
+
+3) CTA destacado en amarillo:
+- Título: “¿Tienes un Requerimiento Complejo o Urgente?”
+- Subtítulo: “Nuestro equipo responde en menos de 24 h hábiles y diseña la mejor solución para tu empresa.”
+- Botón: “Solicitar Cotización Personalizada” (con ícono 💬 a la izquierda).
+- Estilo: mantener amarillo corporativo, tipografía bold, padding generoso y hover con sombra.
+
+4) Footer:
+- Reemplazar texto corporativo por: “SUMERICA es proveedor de confianza en climatización, telecomunicaciones y suministros industriales en Chile. Con más de 10 años de experiencia y alianzas estratégicas, entregamos soluciones rápidas, flexibles y certificadas para empresas líderes.”
+- Añadir horarios de atención: “Lunes a Viernes · 9:00–18:00 hrs”.
+- Mantener navegación, pero con encabezado “Explora”.
+- Íconos de redes sociales más visibles, en amarillo corporativo con hover states.
+- Opcional: incluir logos de certificaciones o partners en una franja extra antes del footer, con título: “Empresas que confían en SUMERICA”.
+
+5) Accesibilidad y consistencia:
+- Contraste AA garantizado en todos los textos.
+- Tipografía ≥ 16px en microcopys.
+- Botones y links con aria-label adecuados.
+
+Aplica estos cambios para que el cierre del Home transmita máxima confianza, profesionalismo y autoridad en el sector.
