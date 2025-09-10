@@ -1,90 +1,129 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
+import { Clock, CreditCard, FileCheck, MapPin, CheckCircle } from "lucide-react";
+import { useState } from "react";
+import QuoteModal from "@/components/quote-modal";
 
-const heroImages = [
+// Single optimized hero image
+const heroImage = {
+  url: "https://images.unsplash.com/photo-1630683924997-fe27050a0416?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  alt: "Operación industrial con maquinaria y equipos especializados",
+};
+
+const categories = [
+  "Climatización",
+  "Telecom", 
+  "EPP",
+  "Ferretería"
+];
+
+const trustIndicators = [
   {
-    url: "https://images.unsplash.com/photo-1630683924997-fe27050a0416?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    alt: "Operación minera a gran escala con maquinaria pesada",
+    icon: Clock,
+    text: "Puntualidad garantizada"
   },
   {
-    url: "https://images.unsplash.com/photo-1651090430988-ac56ec7608cf?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    alt: "Sitio de construcción con grúas y materiales",
+    icon: CreditCard,
+    text: "Crédito a empresas"
   },
   {
-    url: "https://images.unsplash.com/photo-1599707254554-027aeb4deacd?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    alt: "Torre de telecomunicaciones con equipos modernos",
+    icon: FileCheck,
+    text: "Boleta y factura"
   },
+  {
+    icon: MapPin,
+    text: "Cobertura nacional"
+  }
 ];
 
 export default function HeroCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const currentImage = heroImages[currentSlide];
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   return (
-    <section className="relative h-[600px] hero-carousel">
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-all duration-500"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${currentImage.url}')`,
-        }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center text-center text-white">
-          <div className="max-w-4xl mx-auto px-4">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Soluciones que Impulsan tu Industria
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-200">
-              Desde climatización especializada hasta el suministro integral
-              para tu faena
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/catalog">
-                <Button
-                  className="sumerica-yellow px-8 py-4 text-lg font-semibold"
-                  data-testid="button-hero-catalog"
-                >
-                  Ver Catálogo de Productos
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button
-                  variant="outline"
-                  className="border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-black"
-                  data-testid="button-hero-contact"
-                >
-                  Hablar con un Especialista
-                </Button>
-              </Link>
+    <>
+      <section className="relative h-[600px] lg:h-[700px] hero-section">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%), url('${heroImage.url}')`,
+          }}
+        >
+          <div className="absolute inset-0">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+              <div className="max-w-[680px] text-white">
+                {/* Main Heading */}
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+                  Todo para tu Faena: Clima, Telecom, EPP y Construcción
+                </h1>
+                
+                {/* Subtitle */}
+                <p className="text-xl sm:text-2xl mb-8 text-white/90 font-medium">
+                  Te cotizamos hoy. Entrega rápida. Crédito para empresas disponible.
+                </p>
+
+                {/* Category Chips */}
+                <div className="flex flex-wrap gap-3 mb-8">
+                  {categories.map((category) => (
+                    <Badge 
+                      key={category}
+                      variant="secondary"
+                      className="bg-white/20 backdrop-blur-sm text-white border-white/30 px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors"
+                    >
+                      {category}
+                    </Badge>
+                  ))}
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                  <Button
+                    onClick={() => setIsQuoteModalOpen(true)}
+                    className="sumerica-yellow px-8 py-4 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
+                    size="lg"
+                    aria-label="Armar cotización de productos industriales"
+                    data-testid="button-hero-quote"
+                  >
+                    Armar Cotización
+                  </Button>
+                  
+                  <Link href="/catalog">
+                    <Button
+                      variant="secondary"
+                      className="bg-white text-black px-8 py-4 text-lg font-bold hover:bg-gray-100 shadow-lg transition-all"
+                      size="lg"
+                      aria-label="Ver catálogo completo de productos"
+                      data-testid="button-hero-catalog"
+                    >
+                      Ver Catálogo
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* Microtext */}
+                <p className="text-sm text-white/80 mb-8 font-medium">
+                  Respuesta en &lt;24 h hábil • Cobertura nacional • Boleta y factura
+                </p>
+
+                {/* Trust Indicators */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  {trustIndicators.map((indicator, index) => (
+                    <div key={index} className="flex items-center gap-2 text-white/90">
+                      <indicator.icon className="w-5 h-5 text-primary" />
+                      <span className="text-sm font-medium">{indicator.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Carousel indicators */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full transition-opacity ${
-              index === currentSlide
-                ? "bg-white opacity-100"
-                : "bg-white opacity-50"
-            }`}
-            onClick={() => setCurrentSlide(index)}
-            data-testid={`button-carousel-indicator-${index}`}
-          />
-        ))}
-      </div>
-    </section>
+      <QuoteModal 
+        isOpen={isQuoteModalOpen} 
+        onClose={() => setIsQuoteModalOpen(false)} 
+      />
+    </>
   );
 }
