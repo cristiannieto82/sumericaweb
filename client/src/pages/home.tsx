@@ -8,42 +8,47 @@ const categories = [
   {
     id: "climatizacion",
     name: "Climatización",
-    description: "Sistemas HVAC industriales, aires acondicionados, y soluciones de climatización especializadas",
+    description: "Sistemas HVAC industriales, aire acondicionado de precisión y soluciones de climatización para faenas y plantas.",
     imageUrl: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-    featured: true,
-    colspan: "lg:col-span-2"
+    buttonText: "Explorar Climatización",
+    icon: "❄️",
+    priority: 1
   },
   {
     id: "telecomunicaciones",
     name: "Telecomunicaciones",
-    description: "Equipos de comunicación, antenas y sistemas de conectividad",
+    description: "Redes, cableado estructurado y antenas industriales para máxima conectividad en terreno.",
     imageUrl: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-    featured: true,
-    colspan: ""
+    buttonText: "Ver soluciones de Telecom",
+    icon: "📡",
+    priority: 2
   },
   {
     id: "epp-seguridad",
     name: "EPP y Seguridad",
-    description: "Equipos de protección personal y sistemas de seguridad industrial",
+    description: "Protección personal certificada: cascos, guantes, calzado y equipos de seguridad industrial.",
     imageUrl: "https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-    featured: false,
-    colspan: ""
+    buttonText: "Cotizar EPP ahora",
+    icon: "🦺",
+    priority: 3
   },
   {
     id: "ferreteria",
     name: "Ferretería Industrial",
-    description: "Herramientas, tornillería y accesorios para aplicaciones industriales",
+    description: "Todo en herramientas, tornillería y accesorios para proyectos de construcción y minería.",
     imageUrl: "https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-    featured: false,
-    colspan: ""
+    buttonText: "Explorar Ferretería",
+    icon: "🛠️",
+    priority: 4
   },
   {
     id: "construccion",
     name: "Construcción",
-    description: "Materiales de construcción, herramientas y equipos especializados",
+    description: "Materiales, maquinaria y equipos especializados para obras de gran escala.",
     imageUrl: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-    featured: false,
-    colspan: ""
+    buttonText: "Ver productos de Construcción",
+    icon: "🏗️",
+    priority: 5
   }
 ];
 
