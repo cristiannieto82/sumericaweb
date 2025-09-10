@@ -205,28 +205,51 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <Card 
                 key={category.id} 
-                className={`category-card overflow-hidden shadow-lg ${category.featured ? 'featured-category' : ''} ${category.colspan}`}
+                className="group category-card overflow-hidden shadow-lg border border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300"
                 data-testid={`card-category-${category.id}`}
               >
-                <img 
-                  src={category.imageUrl} 
-                  alt={category.name} 
-                  className="w-full h-48 object-cover" 
-                />
+                <div className="relative">
+                  <img 
+                    src={category.imageUrl} 
+                    alt={category.name} 
+                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" 
+                    loading={index < 2 ? "eager" : "lazy"}
+                  />
+                  
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+                    <Button 
+                      className="sumerica-yellow px-6 py-3 font-bold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
+                      aria-label={`${category.buttonText} - ${category.name}`}
+                      data-testid={`button-view-products-${category.id}`}
+                    >
+                      {category.buttonText}
+                    </Button>
+                  </div>
+                  
+                  {/* Category Icon */}
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white bg-opacity-90 backdrop-blur-sm rounded-full flex items-center justify-center text-xl">
+                    {category.icon}
+                  </div>
+                </div>
+                
                 <CardContent className="p-6">
-                  <h3 className={`font-bold mb-2 ${category.featured ? 'text-2xl' : 'text-xl'}`}>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900">
                     {category.name}
                   </h3>
-                  <p className="text-muted-foreground mb-4">{category.description}</p>
+                  <p className="text-base text-gray-600 mb-4 leading-relaxed" style={{ fontSize: '16px' }}>
+                    {category.description}
+                  </p>
                   <Button 
-                    className={category.featured ? "sumerica-yellow" : "border border-border hover:bg-muted"}
-                    variant={category.featured ? "default" : "outline"}
-                    data-testid={`button-view-products-${category.id}`}
+                    variant="outline"
+                    className="w-full border border-gray-300 hover:bg-gray-50 hover:border-gray-400 font-medium"
+                    aria-label={`${category.buttonText} - ${category.name}`}
+                    data-testid={`button-secondary-${category.id}`}
                   >
-                    Ver Productos
+                    {category.buttonText}
                   </Button>
                 </CardContent>
               </Card>
@@ -235,7 +258,24 @@ export default function Home() {
           
           <div className="text-center mt-12">
             <Link href="/catalog">
-              <Button className="sumerica-yellow px-8 py-3 text-lg" data-testid="button-view-all-categories">
+              <Button 
+                className="sumerica-yellow px-8 py-3 text-lg font-bold shadow-lg hover:shadow-xl transition-all" 
+                data-testid="button-view-all-categories"
+                aria-label="Ver todas las categorías de productos"
+              >
+                Ver Todas las Categorías
+              </Button>
+            </Link>
+          </div>
+          
+          {/* Sticky CTA for Mobile */}
+          <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 shadow-lg z-40 md:hidden">
+            <Link href="/catalog">
+              <Button 
+                className="sumerica-yellow w-full py-3 text-lg font-bold" 
+                data-testid="button-view-all-categories-mobile"
+                aria-label="Ver todas las categorías de productos"
+              >
                 Ver Todas las Categorías
               </Button>
             </Link>
