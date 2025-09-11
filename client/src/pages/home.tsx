@@ -212,74 +212,85 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-16">
+      {/* Our Specialties Section - Modern Industrial Design */}
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Nuestras Especialidades</h2>
-            <p className="text-xl text-muted-foreground">Soluciones integrales para todas las industrias</p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Nuestras Especialidades</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed" style={{ fontSize: '20px' }}>
+              Soluciones industriales integrales con tecnología de vanguardia para impulsar tu negocio
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8">
             {categories.map((category, index) => (
-              <Card 
+              <div 
                 key={category.id} 
-                className="group category-card overflow-hidden shadow-lg border border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300"
+                className="group specialty-card bg-white overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                style={{ 
+                  borderRadius: '24px 24px 0 0',
+                  height: 'fit-content'
+                }}
                 data-testid={`card-category-${category.id}`}
               >
-                <div className="relative">
+                <div className="relative overflow-hidden">
                   <img 
                     src={category.imageUrl} 
                     alt={category.name} 
                     className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" 
+                    style={{ 
+                      clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
+                    }}
                     loading={index < 2 ? "eager" : "lazy"}
                   />
                   
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+                  {/* Dynamic Gradient Overlay */}
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-0 group-hover:opacity-60 transition-all duration-300"
+                    style={{ 
+                      clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
+                    }}
+                  />
+                </div>
+                
+                <div className="p-6 pt-8 relative">
+                  {/* Floating Icon Circle */}
+                  <div className="absolute -top-6 left-6 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg border-4 border-white">
+                    <span className="text-black text-xl font-bold">
+                      {category.icon}
+                    </span>
+                  </div>
+                  
+                  <div className="mt-4">
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900 leading-tight">
+                      {category.name}
+                    </h3>
+                    <p className="text-gray-600 mb-6 leading-relaxed" style={{ fontSize: '16px', lineHeight: '1.6' }}>
+                      {category.description}
+                    </p>
+                    
                     <Button 
-                      className="sumerica-yellow px-6 py-3 font-bold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
+                      variant="outline"
+                      className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-3 transition-all duration-300 hover:shadow-lg"
                       aria-label={`${category.buttonText} - ${category.name}`}
-                      data-testid={`button-view-products-${category.id}`}
+                      data-testid={`button-specialty-${category.id}`}
                     >
                       {category.buttonText}
                     </Button>
                   </div>
-                  
-                  {/* Category Icon */}
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-white bg-opacity-90 backdrop-blur-sm rounded-full flex items-center justify-center text-xl">
-                    {category.icon}
-                  </div>
                 </div>
-                
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">
-                    {category.name}
-                  </h3>
-                  <p className="text-base text-gray-600 mb-4 leading-relaxed" style={{ fontSize: '16px' }}>
-                    {category.description}
-                  </p>
-                  <Button 
-                    variant="outline"
-                    className="w-full border border-gray-300 hover:bg-gray-50 hover:border-gray-400 font-medium"
-                    aria-label={`${category.buttonText} - ${category.name}`}
-                    data-testid={`button-secondary-${category.id}`}
-                  >
-                    {category.buttonText}
-                  </Button>
-                </CardContent>
-              </Card>
+              </div>
             ))}
           </div>
           
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <Link href="/catalog">
               <Button 
-                className="sumerica-yellow px-8 py-3 text-lg font-bold shadow-lg hover:shadow-xl transition-all" 
+                className="sumerica-yellow px-10 py-4 text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" 
                 data-testid="button-view-all-categories"
                 aria-label="Ver todas las categorías de productos"
               >
-                Ver Todas las Categorías
+                🔍 Explorar Todo Nuestro Catálogo
               </Button>
             </Link>
           </div>
@@ -292,7 +303,7 @@ export default function Home() {
                 data-testid="button-view-all-categories-mobile"
                 aria-label="Ver todas las categorías de productos"
               >
-                Ver Todas las Categorías
+                🔍 Explorar Catálogo
               </Button>
             </Link>
           </div>
