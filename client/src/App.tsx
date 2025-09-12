@@ -7,6 +7,8 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Catalog from "@/pages/catalog";
 import Contact from "@/pages/contact";
+import Services from "@/pages/services";
+import Industries from "@/pages/industries";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import FloatingWhatsApp from "@/components/layout/floating-whatsapp";
@@ -20,6 +22,8 @@ function Router() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/catalog" component={Catalog} />
+          <Route path="/servicios" component={Services} />
+          <Route path="/industrias" component={Industries} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
         </Switch>

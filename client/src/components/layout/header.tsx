@@ -10,8 +10,8 @@ import sumericaLogo from "@/assets/logosumerica.png"; // <-- 1. IMPORTA LA IMAGE
 const navigation = [
   { name: "Inicio", href: "/" },
   { name: "Catálogo", href: "/catalog" },
-  { name: "Servicios", href: "#servicios" },
-  { name: "Industrias", href: "#industrias" },
+  { name: "Servicios", href: "/servicios" },
+  { name: "Industrias", href: "/industrias" },
   { name: "Contacto", href: "/contact" },
 ];
 
