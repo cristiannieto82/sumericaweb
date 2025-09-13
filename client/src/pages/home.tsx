@@ -212,75 +212,280 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Our Specialties Section - Modern Industrial Design */}
+      {/* Our Specialties Section - Asymmetric Mosaic Design */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Nuestras Especialidades</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed" style={{ fontSize: '20px' }}>
-              Soluciones industriales integrales con tecnología de vanguardia para impulsar tu negocio
+              Climatización y Telecomunicaciones: nuestros principales diferenciadores para proyectos industriales exigentes
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8">
-            {categories.map((category, index) => (
-              <div 
-                key={category.id} 
-                className="group specialty-card bg-white overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
-                style={{ 
-                  borderRadius: '24px 24px 0 0',
-                  height: 'fit-content'
-                }}
-                data-testid={`card-category-${category.id}`}
-              >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={category.imageUrl} 
-                    alt={category.name} 
-                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" 
-                    style={{ 
-                      clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-                    }}
-                    loading={index < 2 ? "eager" : "lazy"}
-                  />
+          {/* Asymmetric Mosaic Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            {/* Primary Specialties - Large Cards */}
+            {/* Climatización - Large Featured Card */}
+            <div 
+              className="group lg:col-span-2 lg:row-span-2 relative bg-white overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+              style={{
+                borderRadius: '24px 24px 0 0',
+                minHeight: '400px'
+              }}
+              data-testid="card-featured-climatizacion"
+            >
+              <div className="absolute inset-0">
+                <img 
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800" 
+                  alt="Climatización Industrial" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
+                  }}
+                  loading="eager"
+                />
+                
+                {/* Dark Overlay for Legibility */}
+                <div 
+                  className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500"
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
+                  }}
+                />
+              </div>
+              
+              <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+                {/* Icon and Title */}
+                <div>
+                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg mb-6">
+                    <span className="text-black text-2xl font-bold">❄️</span>
+                  </div>
                   
-                  {/* Dynamic Gradient Overlay */}
-                  <div 
-                    className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-0 group-hover:opacity-60 transition-all duration-300"
-                    style={{ 
-                      clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-                    }}
-                  />
+                  <h3 className="text-3xl lg:text-4xl font-bold mb-4 text-white leading-tight">
+                    Climatización Industrial
+                  </h3>
+                  <p className="text-white/90 mb-8 leading-relaxed text-lg" style={{ fontSize: '18px' }}>
+                    Sistemas HVAC industriales, aire acondicionado de precisión y soluciones de climatización para faenas mineras y plantas energéticas. Control total del ambiente para operaciones críticas.
+                  </p>
                 </div>
                 
-                <div className="p-6 pt-8 relative">
-                  {/* Floating Icon Circle */}
-                  <div className="absolute -top-6 left-6 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg border-4 border-white">
-                    <span className="text-black text-xl font-bold">
-                      {category.icon}
-                    </span>
+                {/* CTA Button */}
+                <Button 
+                  variant="outline"
+                  className="w-fit border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-3 px-8 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  aria-label="Explorar soluciones de Climatización Industrial"
+                  data-testid="button-climatizacion-explore"
+                >
+                  Explorar Climatización
+                </Button>
+              </div>
+            </div>
+
+            {/* Telecomunicaciones - Large Featured Card */}
+            <div 
+              className="group relative bg-white overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+              style={{
+                borderRadius: '24px 24px 0 0',
+                minHeight: '400px'
+              }}
+              data-testid="card-featured-telecomunicaciones"
+            >
+              <div className="absolute inset-0">
+                <img 
+                  src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" 
+                  alt="Telecomunicaciones Industriales" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
+                  }}
+                  loading="eager"
+                />
+                
+                {/* Dark Overlay for Legibility */}
+                <div 
+                  className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500"
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
+                  }}
+                />
+              </div>
+              
+              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+                {/* Icon and Title */}
+                <div>
+                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg mb-6">
+                    <span className="text-black text-2xl font-bold">📡</span>
                   </div>
                   
-                  <div className="mt-4">
-                    <h3 className="text-2xl font-bold mb-4 text-gray-900 leading-tight">
-                      {category.name}
-                    </h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed" style={{ fontSize: '16px', lineHeight: '1.6' }}>
-                      {category.description}
-                    </p>
-                    
-                    <Button 
-                      variant="outline"
-                      className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-3 transition-all duration-300 hover:shadow-lg"
-                      aria-label={`${category.buttonText} - ${category.name}`}
-                      data-testid={`button-specialty-${category.id}`}
-                    >
-                      {category.buttonText}
-                    </Button>
-                  </div>
+                  <h3 className="text-3xl font-bold mb-4 text-white leading-tight">
+                    Telecomunicaciones
+                  </h3>
+                  <p className="text-white/90 mb-8 leading-relaxed text-base" style={{ fontSize: '16px' }}>
+                    Redes, cableado estructurado y antenas industriales para máxima conectividad en terreno. Comunicación robusta para operaciones remotas.
+                  </p>
+                </div>
+                
+                {/* CTA Button */}
+                <Button 
+                  variant="outline"
+                  className="w-fit border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-3 px-6 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  aria-label="Ver soluciones de Telecomunicaciones Industriales"
+                  data-testid="button-telecomunicaciones-explore"
+                >
+                  Ver soluciones de Telecom
+                </Button>
+              </div>
+            </div>
+
+            {/* Secondary Specialties - Compact Cards */}
+            {/* EPP y Seguridad */}
+            <div 
+              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              style={{
+                borderRadius: '24px 24px 0 0',
+                minHeight: '180px'
+              }}
+              data-testid="card-compact-epp"
+            >
+              <div className="relative overflow-hidden h-24">
+                <img 
+                  src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                  alt="EPP y Seguridad" 
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
+                  }}
+                  loading="lazy"
+                />
+                <div 
+                  className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
+                  }}
+                />
+              </div>
+              
+              <div className="p-6 pt-4">
+                <div className="absolute -top-4 left-6 w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                  <span className="text-black text-lg font-bold">🦺</span>
+                </div>
+                
+                <div className="mt-2">
+                  <h3 className="text-xl font-bold mb-4 text-gray-900">
+                    EPP y Seguridad
+                  </h3>
+                  
+                  <Button 
+                    variant="outline"
+                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
+                    aria-label="Cotizar EPP y equipos de seguridad industrial"
+                    data-testid="button-epp-quote"
+                  >
+                    Cotizar EPP ahora
+                  </Button>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Ferretería Industrial */}
+            <div 
+              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              style={{
+                borderRadius: '24px 24px 0 0',
+                minHeight: '180px'
+              }}
+              data-testid="card-compact-ferreteria"
+            >
+              <div className="relative overflow-hidden h-24">
+                <img 
+                  src="https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                  alt="Ferretería Industrial" 
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
+                  }}
+                  loading="lazy"
+                />
+                <div 
+                  className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
+                  }}
+                />
+              </div>
+              
+              <div className="p-6 pt-4">
+                <div className="absolute -top-4 left-6 w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                  <span className="text-black text-lg font-bold">🛠️</span>
+                </div>
+                
+                <div className="mt-2">
+                  <h3 className="text-xl font-bold mb-4 text-gray-900">
+                    Ferretería Industrial
+                  </h3>
+                  
+                  <Button 
+                    variant="outline"
+                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
+                    aria-label="Explorar herramientas y ferretería industrial"
+                    data-testid="button-ferreteria-explore"
+                  >
+                    Explorar Ferretería
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Construcción */}
+            <div 
+              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              style={{
+                borderRadius: '24px 24px 0 0',
+                minHeight: '180px'
+              }}
+              data-testid="card-compact-construccion"
+            >
+              <div className="relative overflow-hidden h-24">
+                <img 
+                  src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                  alt="Construcción" 
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
+                  }}
+                  loading="lazy"
+                />
+                <div 
+                  className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
+                  }}
+                />
+              </div>
+              
+              <div className="p-6 pt-4">
+                <div className="absolute -top-4 left-6 w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                  <span className="text-black text-lg font-bold">🏗️</span>
+                </div>
+                
+                <div className="mt-2">
+                  <h3 className="text-xl font-bold mb-4 text-gray-900">
+                    Construcción
+                  </h3>
+                  
+                  <Button 
+                    variant="outline"
+                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
+                    aria-label="Ver productos y materiales de construcción"
+                    data-testid="button-construccion-explore"
+                  >
+                    Ver productos de Construcción
+                  </Button>
+                </div>
+              </div>
+            </div>
+
           </div>
           
           <div className="text-center mt-16">
