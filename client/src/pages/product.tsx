@@ -8,6 +8,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ArrowLeft, Download, MessageCircle, Star, CheckCircle, Truck, Shield, Award, Settings, Ruler, ShieldCheck, Wrench, Briefcase, HardHat } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import ProductDatasheet from '@/components/pdf/ProductDatasheet';
 import type { Product, Dimensions, Specifications } from "@shared/schema";
 
 export default function ProductPage() {
@@ -178,10 +180,18 @@ export default function ProductPage() {
                     <MessageCircle className="w-5 h-5 mr-2" />
                     Solicitar Cotización
                   </Button>
-                  <Button variant="outline" size="lg" data-testid="button-download-datasheet">
-                    <Download className="w-5 h-5 mr-2" />
-                    Ficha PDF
-                  </Button>
+                  <PDFDownloadLink
+                    document={<ProductDatasheet product={product} />}
+                    fileName={`${product.name.replace(/\s+/g, '-')}-ficha-tecnica.pdf`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {({ loading }: { loading: boolean }) => (
+                      <Button variant="outline" size="lg" data-testid="button-download-datasheet" disabled={loading}>
+                        <Download className="w-5 h-5 mr-2" />
+                        {loading ? 'Generando PDF...' : 'Descargar Ficha PDF'}
+                      </Button>
+                    )}
+                  </PDFDownloadLink>
                 </div>
               </div>
             </div>
