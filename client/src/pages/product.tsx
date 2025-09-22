@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, Download, MessageCircle, Star, CheckCircle, Truck, Shield, Award } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ArrowLeft, Download, MessageCircle, Star, CheckCircle, Truck, Shield, Award, Settings, Ruler, ShieldCheck, Wrench, Briefcase, HardHat } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
-import type { Product } from "@shared/schema";
+import type { Product, Dimensions, Specifications } from "@shared/schema";
 
 export default function ProductPage() {
   const [, params] = useRoute("/product/:id");
@@ -184,6 +185,211 @@ export default function ProductPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Technical Specifications Section */}
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Especificaciones técnicas</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Información detallada sobre características técnicas, dimensiones y certificaciones del producto.
+              </p>
+            </div>
+
+            <Card className="shadow-xl border-0" data-testid="card-technical-specs">
+              <CardContent className="p-6">
+                <Accordion type="multiple" className="w-full">
+                  {/* Technical Specifications */}
+                  {product.specifications && typeof product.specifications === 'object' && Object.keys(product.specifications as Specifications).length > 0 && (
+                    <AccordionItem value="specifications" data-testid="accordion-specifications">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <Settings className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold">Especificaciones técnicas</h3>
+                            <p className="text-sm text-gray-500">Características y parámetros técnicos</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-12 pt-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {Object.entries(product.specifications as Specifications).map(([key, value]) => (
+                              <div key={key} className="flex justify-between py-2 border-b border-gray-100 last:border-0">
+                                <span className="font-medium text-gray-700 capitalize">
+                                  {key.replace(/([A-Z])/g, ' $1').trim()}:
+                                </span>
+                                <span className="text-gray-900">{String(value)}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {/* Dimensions */}
+                  {product.dimensions && typeof product.dimensions === 'object' && (
+                    <AccordionItem value="dimensions" data-testid="accordion-dimensions">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                            <Ruler className="w-5 h-5 text-green-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold">Dimensiones y peso</h3>
+                            <p className="text-sm text-gray-500">Medidas físicas del producto</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-12 pt-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {(product.dimensions as Dimensions).width && (
+                              <div className="flex justify-between py-2 border-b border-gray-100">
+                                <span className="font-medium text-gray-700">Ancho:</span>
+                                <span className="text-gray-900">{(product.dimensions as Dimensions).width} {(product.dimensions as Dimensions).unit || 'cm'}</span>
+                              </div>
+                            )}
+                            {(product.dimensions as Dimensions).height && (
+                              <div className="flex justify-between py-2 border-b border-gray-100">
+                                <span className="font-medium text-gray-700">Alto:</span>
+                                <span className="text-gray-900">{(product.dimensions as Dimensions).height} {(product.dimensions as Dimensions).unit || 'cm'}</span>
+                              </div>
+                            )}
+                            {(product.dimensions as Dimensions).depth && (
+                              <div className="flex justify-between py-2 border-b border-gray-100">
+                                <span className="font-medium text-gray-700">Profundidad:</span>
+                                <span className="text-gray-900">{(product.dimensions as Dimensions).depth} {(product.dimensions as Dimensions).unit || 'cm'}</span>
+                              </div>
+                            )}
+                            {(product.dimensions as Dimensions).weight && (
+                              <div className="flex justify-between py-2 border-b border-gray-100">
+                                <span className="font-medium text-gray-700">Peso:</span>
+                                <span className="text-gray-900">{(product.dimensions as Dimensions).weight} {(product.dimensions as Dimensions).weightUnit || 'kg'}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {/* Materials */}
+                  {product.materials && product.materials.length > 0 && (
+                    <AccordionItem value="materials" data-testid="accordion-materials">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <HardHat className="w-5 h-5 text-purple-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold">Materiales de construcción</h3>
+                            <p className="text-sm text-gray-500">Materiales y acabados utilizados</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-12 pt-4">
+                          <ul className="space-y-2">
+                            {product.materials.map((material, index) => (
+                              <li key={index} className="flex items-start gap-3">
+                                <CheckCircle className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
+                                <span className="text-gray-700">{material}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {/* Certifications */}
+                  {product.certifications && product.certifications.length > 0 && (
+                    <AccordionItem value="certifications" data-testid="accordion-certifications">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                            <ShieldCheck className="w-5 h-5 text-yellow-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold">Certificaciones y normas</h3>
+                            <p className="text-sm text-gray-500">Estándares de calidad y seguridad</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-12 pt-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {product.certifications.map((cert, index) => (
+                              <div key={index} className="flex items-center gap-3 p-3 bg-yellow-50 rounded-lg">
+                                <ShieldCheck className="w-5 h-5 text-yellow-600 flex-shrink-0" />
+                                <span className="text-gray-700 font-medium">{cert}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {/* Applications */}
+                  {product.applications && product.applications.length > 0 && (
+                    <AccordionItem value="applications" data-testid="accordion-applications">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                            <Briefcase className="w-5 h-5 text-red-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold">Aplicaciones recomendadas</h3>
+                            <p className="text-sm text-gray-500">Usos industriales y comerciales</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-12 pt-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {product.applications.map((app, index) => (
+                              <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                <span className="text-gray-700">{app}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {/* Installation Guide */}
+                  {product.installationGuide && (
+                    <AccordionItem value="installation" data-testid="accordion-installation">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+                            <Settings className="w-5 h-5 text-indigo-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold">Guía de instalación</h3>
+                            <p className="text-sm text-gray-500">Instrucciones de montaje y configuración</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-12 pt-4">
+                          <div className="prose prose-sm max-w-none text-gray-700">
+                            <p>{product.installationGuide}</p>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+                </Accordion>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Product Benefits Section */}
