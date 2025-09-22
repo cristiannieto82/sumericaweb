@@ -30,21 +30,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get single product by ID - MUST come after specific routes like /search
-  app.get("/api/products/:id", async (req, res) => {
-    try {
-      const { id } = req.params;
-      const product = await storage.getProduct(id);
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-      res.json(product);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch product" });
-    }
-  });
-
-  // Get products by category
+  // Get products by category - MUST come before /:id route to avoid conflicts
   app.get("/api/products/category/:category", async (req, res) => {
     try {
       const { category } = req.params;
@@ -55,7 +41,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get products by brand
+  // Get products by brand - MUST come before /:id route to avoid conflicts
   app.get("/api/products/brand/:brand", async (req, res) => {
     try {
       const { brand } = req.params;
@@ -63,6 +49,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(products);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch products by brand" });
+    }
+  });
+
+  // Get single product by ID - MUST come LAST after all specific routes
+  app.get("/api/products/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const product = await storage.getProduct(id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch product" });
     }
   });
 
