@@ -321,14 +321,14 @@ export default function Home() {
             {/* Secondary Specialties - Compact Cards */}
             {/* EPP y Seguridad */}
             <div 
-              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative"
               style={{
                 borderRadius: '24px 24px 0 0',
                 minHeight: '180px'
               }}
               data-testid="card-compact-epp"
             >
-              <div className="relative overflow-hidden h-32">
+              <div className="absolute inset-0">
                 <img 
                   src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
                   alt="EPP y Seguridad" 
@@ -336,38 +336,38 @@ export default function Home() {
                   loading="lazy"
                 />
                 <div 
-                  className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
+                  className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500"
                 />
               </div>
               
-              <div className="p-6">
+              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
                 <div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">
+                  <h3 className="text-xl font-bold mb-4 text-white">
                     EPP y Seguridad
                   </h3>
-                  
-                  <Button 
-                    variant="outline"
-                    className="w-full bg-white border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
-                    aria-label="Cotizar EPP y equipos de seguridad industrial"
-                    data-testid="button-epp-quote"
-                  >
-                    Cotizar EPP ahora
-                  </Button>
                 </div>
+                
+                <Button 
+                  variant="outline"
+                  className="w-fit bg-transparent border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-2 px-6 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  aria-label="Cotizar EPP y equipos de seguridad industrial"
+                  data-testid="button-epp-quote"
+                >
+                  Cotizar EPP ahora
+                </Button>
               </div>
             </div>
 
             {/* Ferretería Industrial */}
             <div 
-              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative"
               style={{
                 borderRadius: '24px 24px 0 0',
                 minHeight: '180px'
               }}
               data-testid="card-compact-ferreteria"
             >
-              <div className="relative overflow-hidden h-32">
+              <div className="absolute inset-0">
                 <img 
                   src="https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
                   alt="Ferretería Industrial" 
@@ -375,38 +375,38 @@ export default function Home() {
                   loading="lazy"
                 />
                 <div 
-                  className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
+                  className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500"
                 />
               </div>
               
-              <div className="p-6">
+              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
                 <div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">
+                  <h3 className="text-xl font-bold mb-4 text-white">
                     Ferretería Industrial
                   </h3>
-                  
-                  <Button 
-                    variant="outline"
-                    className="w-full bg-white border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
-                    aria-label="Explorar herramientas y ferretería industrial"
-                    data-testid="button-ferreteria-explore"
-                  >
-                    Explorar Ferretería
-                  </Button>
                 </div>
+                
+                <Button 
+                  variant="outline"
+                  className="w-fit bg-transparent border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-2 px-6 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  aria-label="Explorar herramientas y ferretería industrial"
+                  data-testid="button-ferreteria-explore"
+                >
+                  Explorar Ferretería
+                </Button>
               </div>
             </div>
 
             {/* Construcción */}
             <div 
-              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative"
               style={{
                 borderRadius: '24px 24px 0 0',
                 minHeight: '180px'
               }}
               data-testid="card-compact-construccion"
             >
-              <div className="relative overflow-hidden h-32">
+              <div className="absolute inset-0">
                 <img 
                   src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
                   alt="Construcción" 
@@ -414,25 +414,25 @@ export default function Home() {
                   loading="lazy"
                 />
                 <div 
-                  className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
+                  className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500"
                 />
               </div>
               
-              <div className="p-6">
+              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
                 <div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">
+                  <h3 className="text-xl font-bold mb-4 text-white">
                     Construcción
                   </h3>
-                  
-                  <Button 
-                    variant="outline"
-                    className="w-full bg-white border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
-                    aria-label="Ver productos y materiales de construcción"
-                    data-testid="button-construccion-explore"
-                  >
-                    Ver productos de Construcción
-                  </Button>
                 </div>
+                
+                <Button 
+                  variant="outline"
+                  className="w-fit bg-transparent border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-2 px-6 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  aria-label="Ver productos y materiales de construcción"
+                  data-testid="button-construccion-explore"
+                >
+                  Ver productos de Construcción
+                </Button>
               </div>
             </div>
 
