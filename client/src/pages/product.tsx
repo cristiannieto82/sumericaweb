@@ -11,6 +11,7 @@ import { useState } from "react";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import ProductDatasheet from '@/components/pdf/ProductDatasheet';
 import QuoteRequestModal from '@/components/QuoteRequestModal';
+import RelatedProducts from '@/components/RelatedProducts';
 import type { Product, Dimensions, Specifications } from "@shared/schema";
 
 export default function ProductPage() {
@@ -425,6 +426,9 @@ export default function ProductPage() {
               ))}
             </div>
           </div>
+
+          {/* Related Products Section */}
+          <RelatedProducts currentProduct={product} />
         </div>
       </div>
     </>
