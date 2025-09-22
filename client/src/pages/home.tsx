@@ -240,28 +240,18 @@ export default function Home() {
                   src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800" 
                   alt="Climatización Industrial" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-                  }}
                   loading="eager"
                 />
                 
                 {/* Dark Overlay for Legibility */}
                 <div 
                   className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500"
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-                  }}
                 />
               </div>
               
               <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-                {/* Icon and Title */}
+                {/* Title */}
                 <div>
-                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg mb-6">
-                    <span className="text-black text-2xl font-bold">❄️</span>
-                  </div>
-                  
                   <h3 className="text-3xl lg:text-4xl font-bold mb-4 text-white leading-tight">
                     Climatización Industrial
                   </h3>
@@ -273,7 +263,7 @@ export default function Home() {
                 {/* CTA Button */}
                 <Button 
                   variant="outline"
-                  className="w-fit border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-3 px-8 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  className="w-fit bg-transparent border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-3 px-8 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
                   aria-label="Explorar soluciones de Climatización Industrial"
                   data-testid="button-climatizacion-explore"
                 >
@@ -296,28 +286,18 @@ export default function Home() {
                   src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" 
                   alt="Telecomunicaciones Industriales" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-                  }}
                   loading="eager"
                 />
                 
                 {/* Dark Overlay for Legibility */}
                 <div 
                   className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500"
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-                  }}
                 />
               </div>
               
               <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                {/* Icon and Title */}
+                {/* Title */}
                 <div>
-                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg mb-6">
-                    <span className="text-black text-2xl font-bold">📡</span>
-                  </div>
-                  
                   <h3 className="text-3xl font-bold mb-4 text-white leading-tight">
                     Telecomunicaciones
                   </h3>
@@ -329,7 +309,7 @@ export default function Home() {
                 {/* CTA Button */}
                 <Button 
                   variant="outline"
-                  className="w-fit border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-3 px-6 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  className="w-fit bg-transparent border-2 border-white text-white hover:bg-primary hover:border-primary hover:text-black font-semibold py-3 px-6 transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
                   aria-label="Ver soluciones de Telecomunicaciones Industriales"
                   data-testid="button-telecomunicaciones-explore"
                 >
@@ -348,37 +328,27 @@ export default function Home() {
               }}
               data-testid="card-compact-epp"
             >
-              <div className="relative overflow-hidden h-24">
+              <div className="relative overflow-hidden h-32">
                 <img 
                   src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
                   alt="EPP y Seguridad" 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
-                  }}
                   loading="lazy"
                 />
                 <div 
                   className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
-                  }}
                 />
               </div>
               
-              <div className="p-6 pt-4">
-                <div className="absolute -top-4 left-6 w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                  <span className="text-black text-lg font-bold">🦺</span>
-                </div>
-                
-                <div className="mt-2">
+              <div className="p-6">
+                <div>
                   <h3 className="text-xl font-bold mb-4 text-gray-900">
                     EPP y Seguridad
                   </h3>
                   
                   <Button 
                     variant="outline"
-                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
+                    className="w-full bg-white border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
                     aria-label="Cotizar EPP y equipos de seguridad industrial"
                     data-testid="button-epp-quote"
                   >
@@ -397,37 +367,27 @@ export default function Home() {
               }}
               data-testid="card-compact-ferreteria"
             >
-              <div className="relative overflow-hidden h-24">
+              <div className="relative overflow-hidden h-32">
                 <img 
                   src="https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
                   alt="Ferretería Industrial" 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
-                  }}
                   loading="lazy"
                 />
                 <div 
                   className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
-                  }}
                 />
               </div>
               
-              <div className="p-6 pt-4">
-                <div className="absolute -top-4 left-6 w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                  <span className="text-black text-lg font-bold">🛠️</span>
-                </div>
-                
-                <div className="mt-2">
+              <div className="p-6">
+                <div>
                   <h3 className="text-xl font-bold mb-4 text-gray-900">
                     Ferretería Industrial
                   </h3>
                   
                   <Button 
                     variant="outline"
-                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
+                    className="w-full bg-white border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
                     aria-label="Explorar herramientas y ferretería industrial"
                     data-testid="button-ferreteria-explore"
                   >
@@ -446,37 +406,27 @@ export default function Home() {
               }}
               data-testid="card-compact-construccion"
             >
-              <div className="relative overflow-hidden h-24">
+              <div className="relative overflow-hidden h-32">
                 <img 
                   src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
                   alt="Construcción" 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
-                  }}
                   loading="lazy"
                 />
                 <div 
                   className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)'
-                  }}
                 />
               </div>
               
-              <div className="p-6 pt-4">
-                <div className="absolute -top-4 left-6 w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                  <span className="text-black text-lg font-bold">🏗️</span>
-                </div>
-                
-                <div className="mt-2">
+              <div className="p-6">
+                <div>
                   <h3 className="text-xl font-bold mb-4 text-gray-900">
                     Construcción
                   </h3>
                   
                   <Button 
                     variant="outline"
-                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
+                    className="w-full bg-white border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold py-2 transition-all duration-300"
                     aria-label="Ver productos y materiales de construcción"
                     data-testid="button-construccion-explore"
                   >
@@ -495,7 +445,7 @@ export default function Home() {
                 data-testid="button-view-all-categories"
                 aria-label="Ver todas las categorías de productos"
               >
-                🔍 Explorar Todo Nuestro Catálogo
+                Explorar Todo Nuestro Catálogo
               </Button>
             </Link>
           </div>
@@ -508,7 +458,7 @@ export default function Home() {
                 data-testid="button-view-all-categories-mobile"
                 aria-label="Ver todas las categorías de productos"
               >
-                🔍 Explorar Catálogo
+                Explorar Catálogo
               </Button>
             </Link>
           </div>
