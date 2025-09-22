@@ -10,6 +10,7 @@ import { Link } from "wouter";
 import { useState } from "react";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import ProductDatasheet from '@/components/pdf/ProductDatasheet';
+import QuoteRequestModal from '@/components/QuoteRequestModal';
 import type { Product, Dimensions, Specifications } from "@shared/schema";
 
 export default function ProductPage() {
@@ -176,10 +177,7 @@ export default function ProductPage() {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button className="sumerica-yellow flex-1" size="lg" data-testid="button-request-quote">
-                    <MessageCircle className="w-5 h-5 mr-2" />
-                    Solicitar Cotización
-                  </Button>
+                  <QuoteRequestModal product={product} />
                   <PDFDownloadLink
                     document={<ProductDatasheet product={product} />}
                     fileName={`${product.name.replace(/\s+/g, '-')}-ficha-tecnica.pdf`}
