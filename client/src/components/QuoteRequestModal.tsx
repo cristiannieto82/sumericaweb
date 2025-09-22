@@ -3,17 +3,19 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import { insertQuoteSchema } from "@shared/schema";
-import type { Product } from "@shared/schema";
+import type { Product, Quote } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MessageCircle, Send, Loader2 } from "lucide-react";
+import { MessageCircle, Send, Loader2, Download, CheckCircle } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import QuoteRequestPDF from '@/components/pdf/QuoteRequestPDF';
 
 // Form schema for user input fields only (excluding products array)
 const quoteFormSchema = insertQuoteSchema.omit({ products: true }).extend({
@@ -29,6 +31,7 @@ interface QuoteRequestModalProps {
 
 export default function QuoteRequestModal({ product, trigger }: QuoteRequestModalProps) {
   const [open, setOpen] = useState(false);
+  const [submittedQuote, setSubmittedQuote] = useState<{quote: Quote, formData: QuoteFormData} | null>(null);
   const { toast } = useToast();
   
   const form = useForm<QuoteFormData>({
@@ -44,7 +47,7 @@ export default function QuoteRequestModal({ product, trigger }: QuoteRequestModa
   });
 
   const createQuoteMutation = useMutation({
-    mutationFn: async (data: QuoteFormData) => {
+    mutationFn: async (data: QuoteFormData): Promise<Quote> => {
       // Transform form data to match the expected API format
       const quoteData = {
         name: data.name,
@@ -59,18 +62,32 @@ export default function QuoteRequestModal({ product, trigger }: QuoteRequestModa
         }]
       };
       
-      return await apiRequest('/api/quotes', {
+      const response = await fetch('/api/quotes', {
         method: 'POST',
-        body: quoteData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(quoteData),
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create quote');
+      }
+      
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (quote: Quote) => {
       queryClient.invalidateQueries({ queryKey: ['/api/quotes'] });
+      
+      // Store the submitted quote and form data for PDF generation
+      setSubmittedQuote({ quote, formData: form.getValues() });
+      
       toast({
         title: "Cotización enviada con éxito",
         description: "Hemos recibido tu solicitud de cotización. Te contactaremos pronto con la información solicitada.",
       });
-      setOpen(false);
+      
+      // Don't close the modal immediately to show the success state with PDF download option
       form.reset();
     },
     onError: (error) => {
@@ -87,6 +104,12 @@ export default function QuoteRequestModal({ product, trigger }: QuoteRequestModa
     createQuoteMutation.mutate(data);
   };
 
+  const handleCloseModal = () => {
+    setOpen(false);
+    setSubmittedQuote(null);
+    form.reset();
+  };
+
   const defaultTrigger = (
     <Button className="sumerica-yellow flex-1" size="lg" data-testid="button-request-quote">
       <MessageCircle className="w-5 h-5 mr-2" />
@@ -101,33 +124,83 @@ export default function QuoteRequestModal({ product, trigger }: QuoteRequestModa
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Solicitar Cotización</DialogTitle>
+          <DialogTitle>
+            {submittedQuote ? 'Cotización Enviada' : 'Solicitar Cotización'}
+          </DialogTitle>
           <DialogDescription>
-            Completa el formulario para recibir una cotización personalizada para <strong>{product.name}</strong>
+            {submittedQuote ? (
+              <>Tu solicitud ha sido enviada exitosamente. Puedes descargar un resumen de tu cotización.</>
+            ) : (
+              <>Completa el formulario para recibir una cotización personalizada para <strong>{product.name}</strong></>
+            )}
           </DialogDescription>
         </DialogHeader>
 
-        {/* Product Summary */}
-        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
-          <div className="flex items-start space-x-4">
-            {product.imageUrl && (
-              <img 
-                src={product.imageUrl} 
-                alt={product.name}
-                className="w-16 h-16 object-cover rounded"
-              />
-            )}
-            <div className="flex-1 min-w-0">
-              <h4 className="font-semibold text-sm">{product.name}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {product.brand} {product.model && `- ${product.model}`}
+        {submittedQuote ? (
+          /* Success State with PDF Download */
+          <div className="text-center space-y-6">
+            <div className="flex justify-center">
+              <CheckCircle className="w-16 h-16 text-green-500" />
+            </div>
+            
+            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
+              <h3 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                Solicitud #{submittedQuote.quote.id?.slice(-8)}
+              </h3>
+              <p className="text-sm text-green-600 dark:text-green-300">
+                Tu solicitud de cotización para <strong>{product.name}</strong> ha sido enviada correctamente.
               </p>
-              {product.code && (
-                <p className="text-xs text-gray-500">Código: {product.code}</p>
-              )}
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <PDFDownloadLink
+                document={
+                  <QuoteRequestPDF 
+                    quoteData={submittedQuote.formData} 
+                    product={product}
+                    quoteId={submittedQuote.quote.id?.slice(-8)}
+                  />
+                }
+                fileName={`cotizacion-${product.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`}
+                style={{ textDecoration: 'none', width: '100%' }}
+              >
+                {({ loading }: { loading: boolean }) => (
+                  <Button size="lg" className="w-full sumerica-yellow" disabled={loading} data-testid="button-download-quote-pdf">
+                    <Download className="w-5 h-5 mr-2" />
+                    {loading ? 'Generando PDF...' : 'Descargar Resumen de Cotización'}
+                  </Button>
+                )}
+              </PDFDownloadLink>
+              
+              <Button variant="outline" onClick={handleCloseModal} data-testid="button-close-success">
+                Cerrar
+              </Button>
             </div>
           </div>
-        </div>
+        ) : (
+          /* Form State */
+          <>
+            {/* Product Summary */}
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
+              <div className="flex items-start space-x-4">
+                {product.imageUrl && (
+                  <img 
+                    src={product.imageUrl} 
+                    alt={product.name}
+                    className="w-16 h-16 object-cover rounded"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-semibold text-sm">{product.name}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {product.brand} {product.model && `- ${product.model}`}
+                  </p>
+                  {product.code && (
+                    <p className="text-xs text-gray-500">Código: {product.code}</p>
+                  )}
+                </div>
+              </div>
+            </div>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -278,6 +351,8 @@ export default function QuoteRequestModal({ product, trigger }: QuoteRequestModa
             </div>
           </form>
         </Form>
+        </>
+        )}
       </DialogContent>
     </Dialog>
   );
