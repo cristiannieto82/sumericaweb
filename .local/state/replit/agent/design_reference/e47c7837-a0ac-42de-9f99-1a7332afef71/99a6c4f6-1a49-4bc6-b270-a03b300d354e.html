@@ -1,0 +1,790 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUMERICA - Soluciones Industriales Integrales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                },
+                fontFamily: {
+                    sans: ["var(--font-sans)"],
+                }
+            },
+        }
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --background: hsl(0 0% 100%);
+            --foreground: hsl(0 0% 0%);
+            --card: hsl(0 0% 100%);
+            --card-foreground: hsl(0 0% 0%);
+            --primary: hsl(48 100% 50%);
+            --primary-foreground: hsl(0 0% 0%);
+            --secondary: hsl(0 0% 96%);
+            --secondary-foreground: hsl(0 0% 0%);
+            --muted: hsl(0 0% 96%);
+            --muted-foreground: hsl(0 0% 45%);
+            --accent: hsl(48 100% 50%);
+            --accent-foreground: hsl(0 0% 0%);
+            --border: hsl(0 0% 89%);
+            --input: hsl(0 0% 89%);
+            --ring: hsl(48 100% 50%);
+            --radius: 0.5rem;
+            --font-sans: 'Montserrat', system-ui, sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+        }
+        
+        .sumerica-yellow {
+            background-color: #ffc800;
+            color: #000000;
+        }
+        
+        .sumerica-yellow:hover {
+            background-color: #e6b500;
+        }
+        
+        .hero-carousel {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease-in-out;
+        }
+        
+        .quote-counter {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 40;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-4px);
+            transition: transform 0.3s ease;
+        }
+        
+        .featured-category {
+            border: 2px solid #ffc800;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground min-h-screen">
+    <!-- @COMPONENT: Header [global navigation with logo, menu, and CTA] -->
+    <header class="bg-white shadow-sm border-b border-border sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-foreground">
+                        <span class="text-primary">SUMERICA</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-foreground hover:text-primary font-medium transition-colors">Inicio</a>
+                    <a href="#catalogo" class="text-foreground hover:text-primary font-medium transition-colors">Catálogo</a>
+                    <a href="#servicios" class="text-foreground hover:text-primary font-medium transition-colors">Servicios</a>
+                    <a href="#industrias" class="text-foreground hover:text-primary font-medium transition-colors">Industrias</a>
+                    <a href="#contacto" class="text-foreground hover:text-primary font-medium transition-colors">Contacto</a>
+                </nav>
+                
+                <!-- CTA Button & Quote Counter -->
+                <div class="flex items-center space-x-4">
+                    <div id="quoteCounter" class="hidden bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                        <i class="fas fa-clipboard-list mr-1"></i>
+                        <span id="quoteCount">0</span> productos
+                    </div>
+                    <button class="sumerica-yellow px-6 py-2 rounded-lg font-semibold transition-colors">
+                        Cotizar Ahora
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden text-foreground">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- @COMPONENT: HomePage [main landing page with hero, value props, categories] -->
+    <main id="inicio">
+        <!-- Hero Section with Carousel -->
+        <!-- @STATE: currentSlide:number = 0, slides:array = heroImages -->
+        <section class="relative h-[600px] hero-carousel" id="heroCarousel">
+            <!-- Large scale mining operation with heavy machinery and industrial equipment -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600');">
+                <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+                    <div class="max-w-4xl mx-auto px-4">
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                            Soluciones que Impulsan tu Industria
+                        </h1>
+                        <p class="text-xl md:text-2xl mb-8 text-gray-200">
+                            Desde climatización especializada hasta el suministro integral para tu faena
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button class="sumerica-yellow px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+                                Ver Catálogo de Productos
+                            </button>
+                            <button class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-black transition-colors">
+                                Hablar con un Especialista
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel indicators -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <button class="w-3 h-3 rounded-full bg-white opacity-50" data-slide="0"></button>
+                <button class="w-3 h-3 rounded-full bg-white" data-slide="1"></button>
+                <button class="w-3 h-3 rounded-full bg-white opacity-50" data-slide="2"></button>
+            </div>
+        </section>
+
+        <!-- Value Proposition Section -->
+        <section class="py-16 bg-muted">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center">
+                            <i class="fas fa-snowflake text-2xl text-primary-foreground"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Especialistas en Clima y Telecom</h3>
+                        <p class="text-muted-foreground">Asesoría experta y precios competitivos para tus proyectos más técnicos</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center">
+                            <i class="fas fa-shipping-fast text-2xl text-primary-foreground"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Logística Rápida y Confiable</h3>
+                        <p class="text-muted-foreground">Entendemos que tu proyecto no puede esperar. Entregamos a tiempo, siempre</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center">
+                            <i class="fas fa-credit-card text-2xl text-primary-foreground"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Crédito para tu Empresa</h3>
+                        <p class="text-muted-foreground">Ofrecemos flexibilidad financiera para apoyar el crecimiento de nuestros socios</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">Nuestras Especialidades</h2>
+                    <p class="text-xl text-muted-foreground">Soluciones integrales para todas las industrias</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Featured: Climatización -->
+                    <div class="category-card featured-category bg-card rounded-xl shadow-lg overflow-hidden lg:col-span-2">
+                        <!-- Modern HVAC system installation in an industrial facility -->
+                        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" alt="Sistemas de climatización industrial" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Climatización</h3>
+                            <p class="text-muted-foreground mb-4">Sistemas HVAC industriales, aires acondicionados, y soluciones de climatización especializadas</p>
+                            <button class="sumerica-yellow px-6 py-2 rounded-lg font-semibold">Ver Productos</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured: Telecomunicaciones -->
+                    <div class="category-card featured-category bg-card rounded-xl shadow-lg overflow-hidden">
+                        <!-- Telecommunications tower with modern communication equipment -->
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" alt="Equipos de telecomunicaciones" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Telecomunicaciones</h3>
+                            <p class="text-muted-foreground mb-4">Equipos de comunicación, antenas y sistemas de conectividad</p>
+                            <button class="sumerica-yellow px-4 py-2 rounded-lg font-medium">Ver Productos</button>
+                        </div>
+                    </div>
+                    
+                    <!-- EPP y Seguridad -->
+                    <div class="category-card bg-card rounded-xl shadow-lg overflow-hidden">
+                        <!-- Workers wearing personal protective equipment in industrial setting -->
+                        <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" alt="Equipos de protección personal" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">EPP y Seguridad</h3>
+                            <p class="text-muted-foreground mb-4">Equipos de protección personal y sistemas de seguridad industrial</p>
+                            <button class="border border-border px-4 py-2 rounded-lg font-medium hover:bg-muted transition-colors">Ver Productos</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Ferretería Industrial -->
+                    <div class="category-card bg-card rounded-xl shadow-lg overflow-hidden">
+                        <!-- Industrial tools and hardware equipment organized in warehouse -->
+                        <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" alt="Ferretería industrial" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Ferretería Industrial</h3>
+                            <p class="text-muted-foreground mb-4">Herramientas, tornillería y accesorios para aplicaciones industriales</p>
+                            <button class="border border-border px-4 py-2 rounded-lg font-medium hover:bg-muted transition-colors">Ver Productos</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Construcción -->
+                    <div class="category-card bg-card rounded-xl shadow-lg overflow-hidden">
+                        <!-- Construction site with cranes and building materials -->
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" alt="Materiales de construcción" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Construcción</h3>
+                            <p class="text-muted-foreground mb-4">Materiales de construcción, herramientas y equipos especializados</p>
+                            <button class="border border-border px-4 py-2 rounded-lg font-medium hover:bg-muted transition-colors">Ver Productos</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <button class="sumerica-yellow px-8 py-3 rounded-lg font-semibold text-lg">
+                        Ver Todas las Categorías
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust and Social Proof Section -->
+        <section class="py-16 bg-muted">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4">Proveemos Soluciones Confiables a la Industria Chilena</h2>
+                    <p class="text-xl text-muted-foreground">Nuestros clientes confían en nosotros para sus proyectos más importantes</p>
+                </div>
+                
+                <!-- Industry Sectors -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
+                            <i class="fas fa-hard-hat text-3xl text-gray-600"></i>
+                        </div>
+                        <h4 class="font-semibold">Minería</h4>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
+                            <i class="fas fa-building text-3xl text-gray-600"></i>
+                        </div>
+                        <h4 class="font-semibold">Construcción</h4>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
+                            <i class="fas fa-bolt text-3xl text-gray-600"></i>
+                        </div>
+                        <h4 class="font-semibold">Energía</h4>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
+                            <i class="fas fa-industry text-3xl text-gray-600"></i>
+                        </div>
+                        <h4 class="font-semibold">Industrial</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="py-16 bg-primary">
+            <div class="max-w-4xl mx-auto text-center px-4">
+                <h2 class="text-4xl font-bold mb-4 text-primary-foreground">¿Tienes un Requerimiento Complejo?</h2>
+                <p class="text-xl mb-8 text-primary-foreground/80">Nuestro equipo está listo para encontrar la solución perfecta para ti</p>
+                <button class="bg-white text-black px-10 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Solicitar Cotización Personalizada
+                </button>
+            </div>
+        </section>
+    </main>
+    <!-- @END_COMPONENT: HomePage -->
+
+    <!-- @COMPONENT: ProductCatalog [searchable product grid with quotation system] -->
+    <section id="catalogo" class="py-16 bg-background hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h1 class="text-4xl font-bold mb-4">Catálogo de Productos</h1>
+                <p class="text-xl text-muted-foreground">Encuentra exactamente lo que necesitas para tu proyecto</p>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="mb-8">
+                <div class="relative max-w-2xl">
+                    <input type="text" 
+                           placeholder="Encuentra tu producto por nombre, marca o código" 
+                           class="w-full px-4 py-4 pr-12 border border-border rounded-lg text-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                           data-implementation="Should trigger real-time search">
+                    <i class="fas fa-search absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground text-xl"></i>
+                </div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Filters Sidebar -->
+                <aside class="lg:w-64 flex-shrink-0">
+                    <div class="bg-card border border-border rounded-lg p-6">
+                        <h3 class="font-semibold mb-4">Filtros</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3">Categoría</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Climatización
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Telecomunicaciones
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> EPP y Seguridad
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Ferretería
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Construcción
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-medium mb-3">Marca</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Carrier
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Cisco
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> 3M
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Bosch
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                
+                <!-- Products Grid -->
+                <main class="flex-1">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- @MAP: products.map(product => ( -->
+                        <!-- Product Card 1 -->
+                        <div class="bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow" data-mock="true">
+                            <!-- Industrial air conditioning unit -->
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200" alt="Aire Acondicionado Industrial" class="w-full h-48 object-cover" />
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2" data-bind="product.name">Aire Acondicionado 24000 BTU</h3>
+                                <p class="text-sm text-muted-foreground mb-3" data-bind="product.brand">Marca: Carrier</p>
+                                <button class="w-full sumerica-yellow py-2 rounded-lg font-medium" 
+                                        data-event="click:addToQuote" 
+                                        data-implementation="Should add product to quotation cart">
+                                    Añadir a Cotización
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product Card 2 -->
+                        <div class="bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow" data-mock="true">
+                            <!-- Network router and communication equipment -->
+                            <img src="https://images.unsplash.com/photo-1606904825846-647eb07f5be2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200" alt="Router Industrial" class="w-full h-48 object-cover" />
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Router Industrial Cisco</h3>
+                                <p class="text-sm text-muted-foreground mb-3">Marca: Cisco</p>
+                                <button class="w-full sumerica-yellow py-2 rounded-lg font-medium">
+                                    Añadir a Cotización
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product Card 3 -->
+                        <div class="bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow" data-mock="true">
+                            <!-- Safety helmet and protective equipment -->
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200" alt="Casco de Seguridad" class="w-full h-48 object-cover" />
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Casco de Seguridad</h3>
+                                <p class="text-sm text-muted-foreground mb-3">Marca: 3M</p>
+                                <button class="w-full sumerica-yellow py-2 rounded-lg font-medium">
+                                    Añadir a Cotización
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product Card 4 -->
+                        <div class="bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow" data-mock="true">
+                            <!-- Power drill and construction tools -->
+                            <img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200" alt="Taladro Industrial" class="w-full h-48 object-cover" />
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Taladro Industrial</h3>
+                                <p class="text-sm text-muted-foreground mb-3">Marca: Bosch</p>
+                                <button class="w-full sumerica-yellow py-2 rounded-lg font-medium">
+                                    Añadir a Cotización
+                                </button>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12">
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-2 border border-border rounded-lg hover:bg-muted">1</button>
+                            <button class="px-3 py-2 border border-border rounded-lg hover:bg-muted">2</button>
+                            <button class="px-3 py-2 border border-border rounded-lg hover:bg-muted">3</button>
+                            <button class="px-3 py-2 border border-border rounded-lg hover:bg-muted">...</button>
+                            <button class="px-3 py-2 border border-border rounded-lg hover:bg-muted">10</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ProductCatalog -->
+
+    <!-- @COMPONENT: ContactPage [contact form, company info, and map integration] -->
+    <section id="contacto" class="py-16 bg-background hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">Contacta con Nosotros</h1>
+                <p class="text-xl text-muted-foreground">Estamos aquí para ayudarte con tu próximo proyecto</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-card border border-border rounded-lg p-8">
+                    <h2 class="text-2xl font-semibold mb-6">Envíanos un Mensaje</h2>
+                    <form class="space-y-6" data-implementation="Should submit contact form to backend">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nombre Completo</label>
+                            <input type="text" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Asunto</label>
+                            <input type="text" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Mensaje</label>
+                            <textarea rows="5" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full sumerica-yellow py-3 rounded-lg font-semibold">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="bg-card border border-border rounded-lg p-8">
+                        <h2 class="text-2xl font-semibold mb-6">Información de Contacto</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-phone w-6 text-primary mr-4"></i>
+                                <div>
+                                    <p class="font-medium">Teléfono</p>
+                                    <a href="tel:+56912345678" class="text-primary hover:underline">+56 9 1234 5678</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope w-6 text-primary mr-4"></i>
+                                <div>
+                                    <p class="font-medium">Email</p>
+                                    <a href="mailto:contacto@sumerica.cl" class="text-primary hover:underline">contacto@sumerica.cl</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-whatsapp w-6 text-primary mr-4"></i>
+                                <div>
+                                    <p class="font-medium">WhatsApp</p>
+                                    <a href="https://wa.me/56912345678" class="text-primary hover:underline">+56 9 1234 5678</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt w-6 text-primary mr-4 mt-1"></i>
+                                <div>
+                                    <p class="font-medium">Dirección Comercial</p>
+                                    <p class="text-muted-foreground">Av. Providencia 1234, Oficina 567<br>Providencia, Santiago, Chile</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Maps Integration -->
+                    <div class="bg-card border border-border rounded-lg overflow-hidden">
+                        <div class="h-64 bg-gray-200 flex items-center justify-center" data-implementation="Integrate Google Maps API here">
+                            <div class="text-center text-muted-foreground">
+                                <i class="fas fa-map text-4xl mb-2"></i>
+                                <p>Mapa de Google Maps</p>
+                                <p class="text-sm">Av. Providencia 1234, Providencia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ContactPage -->
+
+    <!-- @COMPONENT: Footer [company info, links, and social media] -->
+    <footer class="bg-card border-t border-border py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="text-2xl font-bold text-foreground mb-4">
+                        <span class="text-primary">SUMERICA</span>
+                    </div>
+                    <p class="text-muted-foreground mb-4">
+                        Proveedor líder de soluciones industriales integrales en Chile. Especializados en climatización y telecomunicaciones con más de 10 años de experiencia en el mercado.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-muted-foreground hover:text-primary">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-muted-foreground hover:text-primary">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-muted-foreground hover:text-primary">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Navegación</h3>
+                    <div class="space-y-2">
+                        <a href="#inicio" class="block text-muted-foreground hover:text-primary">Inicio</a>
+                        <a href="#catalogo" class="block text-muted-foreground hover:text-primary">Catálogo</a>
+                        <a href="#servicios" class="block text-muted-foreground hover:text-primary">Servicios</a>
+                        <a href="#industrias" class="block text-muted-foreground hover:text-primary">Industrias</a>
+                        <a href="#contacto" class="block text-muted-foreground hover:text-primary">Contacto</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Contacto</h3>
+                    <div class="space-y-2 text-muted-foreground">
+                        <p>+56 9 1234 5678</p>
+                        <p>contacto@sumerica.cl</p>
+                        <p>Av. Providencia 1234<br>Providencia, Santiago</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
+                <p>&copy; 2024 SUMERICA. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/56912345678" class="whatsapp-float bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors" data-implementation="Should open WhatsApp chat">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Quote Cart Modal (Hidden by default) -->
+    <!-- @STATE: showQuoteModal:boolean = false -->
+    <div id="quoteModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+                <div class="p-6 border-b border-border">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold">Solicitar Cotización</h2>
+                        <button id="closeQuoteModal" class="text-muted-foreground hover:text-foreground">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <!-- Quote form would go here -->
+                    <form data-implementation="Should submit quotation request with selected products">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Nombre</label>
+                                <input type="text" class="w-full px-4 py-2 border border-border rounded-lg" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Empresa</label>
+                                <input type="text" class="w-full px-4 py-2 border border-border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email</label>
+                                <input type="email" class="w-full px-4 py-2 border border-border rounded-lg" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Teléfono</label>
+                                <input type="tel" class="w-full px-4 py-2 border border-border rounded-lg" required>
+                            </div>
+                            <button type="submit" class="w-full sumerica-yellow py-3 rounded-lg font-semibold">
+                                Enviar Solicitud de Cotización
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Hero Carousel functionality
+            const heroImages = [
+                "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600')",
+                "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600')",
+                "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600')"
+            ];
+            
+            let currentSlide = 0;
+            const carousel = document.getElementById('heroCarousel');
+            const indicators = document.querySelectorAll('[data-slide]');
+            
+            function updateCarousel() {
+                carousel.style.backgroundImage = heroImages[currentSlide];
+                indicators.forEach((indicator, index) => {
+                    indicator.style.opacity = index === currentSlide ? '1' : '0.5';
+                });
+            }
+            
+            // Auto-rotate carousel
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % heroImages.length;
+                updateCarousel();
+            }, 5000);
+            
+            // Manual navigation
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateCarousel();
+                });
+            });
+            
+            // Quote counter functionality
+            let quoteCount = 0;
+            const quoteCounter = document.getElementById('quoteCounter');
+            const quoteCountDisplay = document.getElementById('quoteCount');
+            
+            function updateQuoteCounter() {
+                quoteCountDisplay.textContent = quoteCount;
+                quoteCounter.style.display = quoteCount > 0 ? 'block' : 'none';
+            }
+            
+            // Add to quote functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.textContent.includes('Añadir a Cotización')) {
+                    quoteCount++;
+                    updateQuoteCounter();
+                    // TODO: Add product to quote cart in real implementation
+                }
+            });
+            
+            // Page navigation (for demo purposes)
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            const sections = ['inicio', 'catalogo', 'contacto'];
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    
+                    // Hide all sections
+                    sections.forEach(sectionId => {
+                        const section = document.getElementById(sectionId);
+                        if (section) {
+                            if (sectionId === targetId) {
+                                section.classList.remove('hidden');
+                            } else if (sectionId !== 'inicio') {
+                                section.classList.add('hidden');
+                            }
+                        }
+                    });
+                    
+                    // Special handling for homepage
+                    if (targetId === 'inicio') {
+                        document.querySelector('main').classList.remove('hidden');
+                        document.getElementById('catalogo').classList.add('hidden');
+                        document.getElementById('contacto').classList.add('hidden');
+                    } else {
+                        document.querySelector('main').classList.add('hidden');
+                    }
+                });
+            });
+            
+            // Quote modal functionality
+            const quoteModal = document.getElementById('quoteModal');
+            const closeQuoteModal = document.getElementById('closeQuoteModal');
+            
+            // Show modal when clicking quote buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.textContent.includes('Cotizar Ahora') || e.target.textContent.includes('Solicitar Cotización')) {
+                    quoteModal.classList.remove('hidden');
+                }
+            });
+            
+            // Close modal
+            closeQuoteModal.addEventListener('click', () => {
+                quoteModal.classList.add('hidden');
+            });
+            
+            // Close modal when clicking outside
+            quoteModal.addEventListener('click', (e) => {
+                if (e.target === quoteModal) {
+                    quoteModal.classList.add('hidden');
+                }
+            });
+            
+            // Initialize
+            updateCarousel();
+            updateQuoteCounter();
+        })();
+    </script>
+</body>
+</html>
