@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -32,6 +32,41 @@ export default function Catalog() {
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
   });
+
+  // Update document head for SEO
+  useEffect(() => {
+    // Base SEO for catalog page
+    document.title = "Catálogo de Productos Industriales HVAC y Telecomunicaciones | SUMERICA";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      const totalProducts = products.length;
+      const description = totalProducts > 0 
+        ? `Explora nuestro catálogo de ${totalProducts} productos industriales especializados en HVAC/climatización y telecomunicaciones. Equipos para minería, construcción y energía en Chile.`
+        : "Explora nuestro catálogo de productos industriales especializados en HVAC/climatización y telecomunicaciones. Equipos para minería, construcción y energía en Chile.";
+      metaDescription.setAttribute('content', description);
+    }
+    
+    // Update Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+      ogTitle.setAttribute('content', 'Catálogo de Productos Industriales HVAC y Telecomunicaciones | SUMERICA');
+    }
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) {
+      ogDescription.setAttribute('content', 'Catálogo completo de equipos industriales especializados en HVAC/climatización y telecomunicaciones para minería, construcción y energía.');
+    }
+    
+    // Update canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://sumerica.cl/catalog');
+  }, [products.length]);
 
   // Filter products based on search and filters using useMemo
   const filteredProducts = useMemo(() => {

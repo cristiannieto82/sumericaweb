@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowLeft, Download, MessageCircle, Star, CheckCircle, Truck, Shield, Award, Settings, Ruler, ShieldCheck, Wrench, Briefcase, HardHat } from "lucide-react";
 import { Link } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import ProductDatasheet from '@/components/pdf/ProductDatasheet';
 import QuoteRequestModal from '@/components/QuoteRequestModal';
@@ -23,6 +23,47 @@ export default function ProductPage() {
     queryKey: ['/api/products', productId],
     enabled: !!productId,
   });
+
+  // Update document head for SEO when product loads
+  useEffect(() => {
+    if (product) {
+      // Update title
+      document.title = `${product.name} - ${product.brand} | SUMERICA`;
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 
+          `${product.description || product.name} - Modelo ${product.model || ''} de ${product.brand}. Especificaciones técnicas, ficha técnica PDF y cotización rápida disponible en SUMERICA.`
+        );
+      }
+      
+      // Update Open Graph tags
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.setAttribute('content', `${product.name} - ${product.brand} | SUMERICA`);
+      }
+      
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      if (ogDescription) {
+        ogDescription.setAttribute('content', product.description || product.name);
+      }
+      
+      const ogImage = document.querySelector('meta[property="og:image"]');
+      if (ogImage && product.imageUrl) {
+        ogImage.setAttribute('content', product.imageUrl);
+      }
+      
+      // Update canonical URL
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', `https://sumerica.cl/product/${productId}`);
+    }
+  }, [product, productId]);
 
   if (isLoading) {
     return (
@@ -61,376 +102,264 @@ export default function ProductPage() {
   ];
 
   return (
-    <>
-      {/* SEO Head */}
-      <title>{product.name} - {product.brand} | SUMERICA</title>
-      <meta name="description" content={`${product.description} - Modelo ${product.model || ''} de ${product.brand}. Especificaciones técnicas, ficha técnica PDF y cotización rápida disponible.`} />
-      <meta property="og:title" content={`${product.name} - ${product.brand} | SUMERICA`} />
-      <meta property="og:description" content={product.description || ''} />
-      <meta property="og:image" content={product.imageUrl || ''} />
-
-      <div className="min-h-screen bg-gray-50">
-        {/* Navigation Breadcrumb */}
-        <div className="bg-white border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center space-x-2 text-sm">
-              <Link href="/" className="text-gray-500 hover:text-gray-700">Inicio</Link>
-              <span className="text-gray-400">/</span>
-              <Link href="/catalog" className="text-gray-500 hover:text-gray-700">Catálogo</Link>
-              <span className="text-gray-400">/</span>
-              <span className="text-gray-900 font-medium">{product.name}</span>
-            </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation Breadcrumb */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center space-x-2 text-sm">
+            <Link href="/" className="text-gray-500 hover:text-gray-700">Inicio</Link>
+            <span className="text-gray-400">/</span>
+            <Link href="/catalog" className="text-gray-500 hover:text-gray-700">Catálogo</Link>
+            <span className="text-gray-400">/</span>
+            <span className="text-gray-900 font-medium">{product.name}</span>
           </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="mb-6">
-            <Link href="/catalog">
-              <Button variant="ghost" size="sm" className="mb-4" data-testid="button-back-catalog">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Volver al catálogo
-              </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            {/* Product Image */}
-            <div className="space-y-4">
-              <div className="aspect-square bg-white rounded-2xl shadow-lg overflow-hidden group">
-                <img
-                  src={product.imageUrl || 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800'}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="eager"
-                  data-testid="img-product-main"
-                />
-              </div>
-              
-              {/* Product Gallery could go here */}
-            </div>
-
-            {/* Product Info */}
-            <div className="space-y-6">
-              {/* Header */}
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge variant="secondary" className="text-xs">{product.category}</Badge>
-                  {product.availability === 'available' && (
-                    <Badge variant="default" className="text-xs bg-green-100 text-green-800">En stock</Badge>
-                  )}
-                </div>
-                
-                <h1 className="text-4xl font-bold text-gray-900 mb-2" data-testid="text-product-name">
-                  {product.name}
-                </h1>
-                
-                <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                  <span><strong>Marca:</strong> {product.brand}</span>
-                  {product.model && <span><strong>Modelo:</strong> {product.model}</span>}
-                  {product.code && <span><strong>Código:</strong> {product.code}</span>}
-                </div>
-
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="flex text-primary">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-current" />
-                    ))}
-                  </div>
-                  <span className="text-sm text-gray-600">Producto certificado</span>
-                </div>
-              </div>
-
-              {/* Description */}
-              <div>
-                <h2 className="text-xl font-semibold mb-3">Descripción técnica</h2>
-                <p className="text-gray-700 leading-relaxed" data-testid="text-product-description">
-                  {product.description || 'Producto industrial de alta calidad diseñado para aplicaciones profesionales.'}
-                </p>
-              </div>
-
-              {/* Key Features */}
-              {product.features && product.features.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Características principales</h3>
-                  <ul className="space-y-2">
-                    {product.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-3" data-testid={`feature-${index}`}>
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Pricing */}
-              <div className="bg-gray-100 rounded-xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <p className="text-sm text-gray-600">Precio</p>
-                    <p className="text-3xl font-bold text-gray-900" data-testid="text-product-price">
-                      {formatPrice(product.priceCents, product.currency || 'CLP')}
-                    </p>
-                    {(product.minOrderQuantity || 1) > 1 && (
-                      <p className="text-sm text-gray-600">Cantidad mínima: {product.minOrderQuantity}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <QuoteRequestModal product={product} />
-                  <PDFDownloadLink
-                    document={<ProductDatasheet product={product} />}
-                    fileName={`${product.name.replace(/\s+/g, '-')}-ficha-tecnica.pdf`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    {({ loading }: { loading: boolean }) => (
-                      <Button variant="outline" size="lg" data-testid="button-download-datasheet" disabled={loading}>
-                        <Download className="w-5 h-5 mr-2" />
-                        {loading ? 'Generando PDF...' : 'Descargar Ficha PDF'}
-                      </Button>
-                    )}
-                  </PDFDownloadLink>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Technical Specifications Section */}
-          <div className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Especificaciones técnicas</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Información detallada sobre características técnicas, dimensiones y certificaciones del producto.
-              </p>
-            </div>
-
-            <Card className="shadow-xl border-0" data-testid="card-technical-specs">
-              <CardContent className="p-6">
-                <Accordion type="multiple" className="w-full">
-                  {/* Technical Specifications */}
-                  {product.specifications && typeof product.specifications === 'object' && Object.keys(product.specifications as Specifications).length > 0 && (
-                    <AccordionItem value="specifications" data-testid="accordion-specifications">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <Settings className="w-5 h-5 text-blue-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold">Especificaciones técnicas</h3>
-                            <p className="text-sm text-gray-500">Características y parámetros técnicos</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-12 pt-4">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {Object.entries(product.specifications as Specifications).map(([key, value]) => (
-                              <div key={key} className="flex justify-between py-2 border-b border-gray-100 last:border-0">
-                                <span className="font-medium text-gray-700 capitalize">
-                                  {key.replace(/([A-Z])/g, ' $1').trim()}:
-                                </span>
-                                <span className="text-gray-900">{String(value)}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
-
-                  {/* Dimensions */}
-                  {product.dimensions && typeof product.dimensions === 'object' && (
-                    <AccordionItem value="dimensions" data-testid="accordion-dimensions">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                            <Ruler className="w-5 h-5 text-green-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold">Dimensiones y peso</h3>
-                            <p className="text-sm text-gray-500">Medidas físicas del producto</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-12 pt-4">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {(product.dimensions as Dimensions).width && (
-                              <div className="flex justify-between py-2 border-b border-gray-100">
-                                <span className="font-medium text-gray-700">Ancho:</span>
-                                <span className="text-gray-900">{(product.dimensions as Dimensions).width} {(product.dimensions as Dimensions).unit || 'cm'}</span>
-                              </div>
-                            )}
-                            {(product.dimensions as Dimensions).height && (
-                              <div className="flex justify-between py-2 border-b border-gray-100">
-                                <span className="font-medium text-gray-700">Alto:</span>
-                                <span className="text-gray-900">{(product.dimensions as Dimensions).height} {(product.dimensions as Dimensions).unit || 'cm'}</span>
-                              </div>
-                            )}
-                            {(product.dimensions as Dimensions).depth && (
-                              <div className="flex justify-between py-2 border-b border-gray-100">
-                                <span className="font-medium text-gray-700">Profundidad:</span>
-                                <span className="text-gray-900">{(product.dimensions as Dimensions).depth} {(product.dimensions as Dimensions).unit || 'cm'}</span>
-                              </div>
-                            )}
-                            {(product.dimensions as Dimensions).weight && (
-                              <div className="flex justify-between py-2 border-b border-gray-100">
-                                <span className="font-medium text-gray-700">Peso:</span>
-                                <span className="text-gray-900">{(product.dimensions as Dimensions).weight} {(product.dimensions as Dimensions).weightUnit || 'kg'}</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
-
-                  {/* Materials */}
-                  {product.materials && product.materials.length > 0 && (
-                    <AccordionItem value="materials" data-testid="accordion-materials">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <HardHat className="w-5 h-5 text-purple-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold">Materiales de construcción</h3>
-                            <p className="text-sm text-gray-500">Materiales y acabados utilizados</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-12 pt-4">
-                          <ul className="space-y-2">
-                            {product.materials.map((material, index) => (
-                              <li key={index} className="flex items-start gap-3">
-                                <CheckCircle className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                                <span className="text-gray-700">{material}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
-
-                  {/* Certifications */}
-                  {product.certifications && product.certifications.length > 0 && (
-                    <AccordionItem value="certifications" data-testid="accordion-certifications">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                            <ShieldCheck className="w-5 h-5 text-yellow-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold">Certificaciones y normas</h3>
-                            <p className="text-sm text-gray-500">Estándares de calidad y seguridad</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-12 pt-4">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            {product.certifications.map((cert, index) => (
-                              <div key={index} className="flex items-center gap-3 p-3 bg-yellow-50 rounded-lg">
-                                <ShieldCheck className="w-5 h-5 text-yellow-600 flex-shrink-0" />
-                                <span className="text-gray-700 font-medium">{cert}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
-
-                  {/* Applications */}
-                  {product.applications && product.applications.length > 0 && (
-                    <AccordionItem value="applications" data-testid="accordion-applications">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                            <Briefcase className="w-5 h-5 text-red-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold">Aplicaciones recomendadas</h3>
-                            <p className="text-sm text-gray-500">Usos industriales y comerciales</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-12 pt-4">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            {product.applications.map((app, index) => (
-                              <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                                <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                                <span className="text-gray-700">{app}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
-
-                  {/* Installation Guide */}
-                  {product.installationGuide && (
-                    <AccordionItem value="installation" data-testid="accordion-installation">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
-                            <Settings className="w-5 h-5 text-indigo-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold">Guía de instalación</h3>
-                            <p className="text-sm text-gray-500">Instrucciones de montaje y configuración</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-12 pt-4">
-                          <div className="prose prose-sm max-w-none text-gray-700">
-                            <p>{product.installationGuide}</p>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
-                </Accordion>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Product Benefits Section */}
-          <div className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">¿Por qué elegir este producto?</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Productos industriales de calidad superior con garantías extendidas y soporte técnico especializado.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {productBenefits.map((benefit, index) => (
-                <Card key={index} className="text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300" data-testid={`benefit-card-${index}`}>
-                  <CardHeader className="pb-4">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <benefit.icon className="w-8 h-8 text-primary" />
-                    </div>
-                    <CardTitle className="text-xl">{benefit.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">{benefit.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          {/* Related Products Section */}
-          <RelatedProducts currentProduct={product} />
         </div>
       </div>
-    </>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6">
+          <Link href="/catalog">
+            <Button variant="ghost" size="sm" className="mb-4" data-testid="button-back-catalog">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Volver al catálogo
+            </Button>
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {/* Product Image */}
+          <div className="space-y-4">
+            <div className="aspect-square bg-white rounded-2xl shadow-lg overflow-hidden group">
+              <img
+                src={product.imageUrl || 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800'}
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="eager"
+                data-testid="img-product-main"
+              />
+            </div>
+            
+            {/* Product Gallery could go here */}
+          </div>
+
+          {/* Product Info */}
+          <div className="space-y-6">
+            {/* Header */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="secondary" className="text-xs">{product.category}</Badge>
+                {product.availability === 'available' && (
+                  <Badge variant="default" className="text-xs bg-green-100 text-green-800">En stock</Badge>
+                )}
+              </div>
+              
+              <h1 className="text-4xl font-bold text-gray-900 mb-2" data-testid="text-product-name">
+                {product.name}
+              </h1>
+              
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-lg text-gray-600">{product.brand}</span>
+                {product.code && (
+                  <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                    Código: {product.code}
+                  </span>
+                )}
+              </div>
+              
+              {/* Price */}
+              <div className="mb-6">
+                <span className="text-3xl font-bold text-gray-900" data-testid="text-product-price">
+                  {formatPrice(product.priceCents, product.currency || 'CLP')}
+                </span>
+              </div>
+            </div>
+
+            {/* Description */}
+            {product.description && (
+              <div>
+                <h2 className="text-xl font-semibold mb-3">Descripción</h2>
+                <p className="text-gray-700 leading-relaxed">{product.description}</p>
+              </div>
+            )}
+
+            {/* Quick Actions */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <QuoteRequestModal product={product}>
+                <Button className="w-full sumerica-yellow" size="lg" data-testid="button-quote-request">
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Solicitar Cotización
+                </Button>
+              </QuoteRequestModal>
+              
+              <PDFDownloadLink document={<ProductDatasheet product={product} />} fileName={`${product.name.replace(/[^a-z0-9]/gi, '_')}_ficha_tecnica.pdf`}>
+                {({ loading, url, error, blob }) => (
+                  <Button variant="outline" className="w-full" size="lg" disabled={loading} data-testid="button-pdf-download">
+                    <Download className="w-5 h-5 mr-2" />
+                    {loading ? 'Generando...' : 'Descargar Ficha PDF'}
+                  </Button>
+                )}
+              </PDFDownloadLink>
+            </div>
+          </div>
+        </div>
+
+        {/* Technical Specifications */}
+        <div className="mb-16">
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-3xl font-bold mb-8 text-center">Especificaciones Técnicas</h2>
+            
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {/* General Specifications */}
+              {product.specifications && (
+                <AccordionItem value="general" className="border rounded-lg px-6" data-testid="accordion-general-specs">
+                  <AccordionTrigger className="hover:no-underline">
+                    <div className="flex items-center">
+                      <Settings className="w-5 h-5 mr-3 text-primary" />
+                      <span className="text-lg font-semibold">Especificaciones Generales</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {Object.entries(product.specifications).map(([key, value]) => (
+                        <div key={key} className="flex justify-between border-b border-gray-100 pb-2">
+                          <span className="font-medium text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                          <span className="text-gray-900">{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              )}
+
+              {/* Dimensions */}
+              {product.dimensions && (
+                <AccordionItem value="dimensions" className="border rounded-lg px-6" data-testid="accordion-dimensions">
+                  <AccordionTrigger className="hover:no-underline">
+                    <div className="flex items-center">
+                      <Ruler className="w-5 h-5 mr-3 text-primary" />
+                      <span className="text-lg font-semibold">Dimensiones y Peso</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {Object.entries(product.dimensions).map(([key, value]) => (
+                        <div key={key} className="flex justify-between border-b border-gray-100 pb-2">
+                          <span className="font-medium text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                          <span className="text-gray-900">{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              )}
+
+              {/* Certifications */}
+              {product.certifications && product.certifications.length > 0 && (
+                <AccordionItem value="certifications" className="border rounded-lg px-6" data-testid="accordion-certifications">
+                  <AccordionTrigger className="hover:no-underline">
+                    <div className="flex items-center">
+                      <ShieldCheck className="w-5 h-5 mr-3 text-primary" />
+                      <span className="text-lg font-semibold">Certificaciones y Normas</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-4">
+                    <div className="flex flex-wrap gap-2">
+                      {product.certifications.map((cert, index) => (
+                        <Badge key={index} variant="outline" className="text-sm">
+                          {cert}
+                        </Badge>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              )}
+
+              {/* Installation & Maintenance */}
+              <AccordionItem value="installation" className="border rounded-lg px-6" data-testid="accordion-installation">
+                <AccordionTrigger className="hover:no-underline">
+                  <div className="flex items-center">
+                    <Wrench className="w-5 h-5 mr-3 text-primary" />
+                    <span className="text-lg font-semibold">Instalación y Mantención</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pt-4">
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Instalación</h4>
+                      <p className="text-gray-700">Instalación especializada disponible. Coordinamos con tu equipo técnico para una implementación sin contratiempos.</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Garantía</h4>
+                      <p className="text-gray-700">{product.warranty || 'Garantía estándar incluida según especificaciones del fabricante.'}</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Soporte Técnico</h4>
+                      <p className="text-gray-700">Asesoría técnica especializada y soporte post-venta disponible.</p>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Applications */}
+              <AccordionItem value="applications" className="border rounded-lg px-6" data-testid="accordion-applications">
+                <AccordionTrigger className="hover:no-underline">
+                  <div className="flex items-center">
+                    <Briefcase className="w-5 h-5 mr-3 text-primary" />
+                    <span className="text-lg font-semibold">Aplicaciones Recomendadas</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-start space-x-3">
+                      <HardHat className="w-5 h-5 mt-1 text-primary flex-shrink-0" />
+                      <div>
+                        <h5 className="font-semibold">Minería</h5>
+                        <p className="text-sm text-gray-600">Ideal para faenas mineras y aplicaciones industriales exigentes.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Shield className="w-5 h-5 mt-1 text-primary flex-shrink-0" />
+                      <div>
+                        <h5 className="font-semibold">Industrial</h5>
+                        <p className="text-sm text-gray-600">Perfecto para plantas industriales y aplicaciones comerciales.</p>
+                      </div>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </div>
+
+        {/* Product Benefits Section */}
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">¿Por qué elegir este producto?</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Productos industriales de calidad superior con garantías extendidas y soporte técnico especializado.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {productBenefits.map((benefit, index) => (
+              <Card key={index} className="text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300" data-testid={`benefit-card-${index}`}>
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl">{benefit.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Products Section */}
+        <RelatedProducts currentProduct={product} />
+      </div>
+    </div>
   );
 }
