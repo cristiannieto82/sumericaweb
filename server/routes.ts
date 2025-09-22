@@ -16,7 +16,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Search products
+  // Search products - MUST come before /:id route to avoid conflicts
   app.get("/api/products/search", async (req, res) => {
     try {
       const { q } = req.query;
@@ -27,6 +27,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(products);
     } catch (error) {
       res.status(500).json({ message: "Failed to search products" });
+    }
+  });
+
+  // Get single product by ID - MUST come after specific routes like /search
+  app.get("/api/products/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const product = await storage.getProduct(id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch product" });
     }
   });
 
