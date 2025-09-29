@@ -30,7 +30,7 @@ export default function Header() {
               <img
                 src={sumericaLogo} // <-- 2. USA LA VARIABLE IMPORTADA
                 alt="Sumerica Logo"
-                className="h-16 w-auto cursor-pointer"
+                className="h-20 w-auto cursor-pointer"
                 data-testid="link-logo"
               />
             </Link>
